@@ -18,6 +18,8 @@ public interface UtenteService {
 	public void rimuovi(Utente utenteInstance) throws Exception;
 	
 	public Utente autenticazione(String username, String password) throws Exception;
+	
+	public List<Utente> cercaUtente(Utente utenteInstance) throws Exception;
 
 	public void setUtenteDAO(UtenteDAO utenteDAO);
 }

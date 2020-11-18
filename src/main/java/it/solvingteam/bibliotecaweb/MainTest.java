@@ -9,6 +9,7 @@ import it.solvingteam.bibliotecaweb.dao.EntityManagerUtil;
 import it.solvingteam.bibliotecaweb.model.Autore;
 import it.solvingteam.bibliotecaweb.model.Libro;
 import it.solvingteam.bibliotecaweb.model.Ruolo;
+import it.solvingteam.bibliotecaweb.model.StatoUtente;
 import it.solvingteam.bibliotecaweb.model.Utente;
 import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 import it.solvingteam.bibliotecaweb.service.libro.LibroService;
@@ -36,10 +37,16 @@ public class MainTest
 			Utente u = new Utente();
 
 			
-			a= autoreService.caricaSingoloElemento(12l);
-			System.out.println(a);
+//			a= autoreService.caricaSingoloElemento(12l);
+//			System.out.println(a);
 //			autoreService.rimuovi(a);
 			
+			
+//			u.setCognome("ro");
+//			
+//			for(Utente utente : utenteService.cercaUtente(u)) {
+//				System.out.println(utente);
+//			}
 			
 			
 			

@@ -49,7 +49,7 @@ body {
 						<c:if test="${ruolo.codice eq 'ADMIN_ROLE' }">
 							<p>
 								<a class="btn btn-success btn-lg"
-									href="articolo/cerca_articolo.jsp" role="button">Cerca
+									href="utente/cerca_utente.jsp" role="button">Cerca
 									utente &raquo; </a>
 							</p>
 						</c:if>
