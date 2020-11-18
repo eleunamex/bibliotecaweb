@@ -7,10 +7,10 @@
 	<persistence-unit name="bibliotecaweb_unit"
 		transaction-type="RESOURCE_LOCAL">
 
-		<class>it.solvingteam.gestioneordini.model.Utente</class>
-		<class>it.solvingteam.gestioneordini.model.Ruolo</class>
-		<class>it.solvingteam.gestioneordini.model.Libro</class>
-		<class>it.solvingteam.gestioneordini.model.Autore</class>
+		<class>it.solvingteam.bibliotecaweb.model.Utente</class>
+		<class>it.solvingteam.bibliotecaweb.model.Ruolo</class>
+		<class>it.solvingteam.bibliotecaweb.model.Libro</class>
+		<class>it.solvingteam.bibliotecaweb.model.Autore</class>
 		<!-- qui ci dovete mettere le entity -->
 		<properties>
 			<!-- setup con MySql -->

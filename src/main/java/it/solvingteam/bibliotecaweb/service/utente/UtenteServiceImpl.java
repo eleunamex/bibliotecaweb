@@ -98,4 +98,18 @@ public class UtenteServiceImpl implements UtenteService {
 			throw e;
 		}
 	}
+
+	@Override
+	public Utente autenticazione(String username, String password) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+			utenteDAO.setEntityManager(entityManager);
+			return utenteDAO.authentication(username, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			entityManager.close();
+		}
+	}
 }

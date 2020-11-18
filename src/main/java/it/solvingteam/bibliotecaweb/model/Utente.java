@@ -112,7 +112,7 @@ public class Utente {
 	@Override
 	public String toString() {
 		return "Utente [id: " + id + ", nome: " + nome + ", cognome: " + cognome + ", username: " + username + ", password: "
-				+ password + ", stato: " + stato + "]";
+				+ password + ", stato: " + stato + ", ruoli: "+listaRuoli+ "]";
 	}
 
 	@Override

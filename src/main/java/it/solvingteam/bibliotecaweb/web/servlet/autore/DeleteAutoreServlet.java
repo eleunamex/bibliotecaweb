@@ -1,6 +1,7 @@
-package it.solvingteam.bibliotecaweb.web.servlet.libro;
+package it.solvingteam.bibliotecaweb.web.servlet.autore;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.solvingteam.bibliotecaweb.model.Libro;
+import it.solvingteam.bibliotecaweb.model.Autore;
 import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
-import it.solvingteam.bibliotecaweb.service.libro.LibroService;
+import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 
 /**
- * Servlet implementation class DeleteLibroServlet
+ * Servlet implementation class DeleteAutoreServlet
  */
-@WebServlet("/DeleteLibroServlet")
-public class DeleteLibroServlet extends HttpServlet {
+@WebServlet("/DeleteAutoreServlet")
+public class DeleteAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
-
+		
 		Long parametroIdLong;
 		
 		//controlli
@@ -39,23 +40,28 @@ public class DeleteLibroServlet extends HttpServlet {
 			}
 		}
 		
-		LibroService service = MyServiceFactory.getLibroServiceInstance();
+		AutoreService service = MyServiceFactory.getAutoreServiceInstance();
 		
-		Libro libro = new Libro();
-		libro.setId(parametroIdLong);
+		Autore autore = new Autore();
+		autore.setId(parametroIdLong);
 		
 		try {
-			service.rimuovi(libro);
-			request.setAttribute("successMessage", "Libro eliminato");
+			service.rimuovi(autore);
+			request.setAttribute("successMessage", "Autore eliminato");
+		} catch(SQLIntegrityConstraintViolationException con) {
+			con.printStackTrace();
+			request.setAttribute("errorMessage", "Non puoi eliminare un autore se ha dei libri");
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Operazione fallita");
 		}
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CercaLibroServlet");
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CercaAutoreServlet");
 
 		dispatcher.forward(request, response);
 	
 	}
+
+ 
 
 }

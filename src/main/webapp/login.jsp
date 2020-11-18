@@ -88,7 +88,7 @@ label.radio:before {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	background: #1c87c9;
+	background: #28A745;
 }
 
 label.radio:after {
@@ -128,7 +128,7 @@ input[type=password] {
 	display: inline-block;
 	padding: 9.3px 15px;
 	box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-	background: #1c87c9;
+	background: #28A745;
 	color: #fff;
 	text-align: center;
 }
@@ -144,7 +144,7 @@ button {
 	margin: 10px auto;
 	border-radius: 5px;
 	border: none;
-	background: #1c87c9;
+	background: #28A745;
 	font-size: 14px;
 	font-weight: 600;
 	color: #fff;

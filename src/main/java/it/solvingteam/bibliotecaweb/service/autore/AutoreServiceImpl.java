@@ -95,6 +95,7 @@ public class AutoreServiceImpl implements AutoreService {
 
 			// controllo
 			Autore autoreEsistente = autoreDAO.get(autoreInstance.getId());
+			
 			if (!autoreEsistente.getListaLibri().isEmpty()) {
 				throw new SQLIntegrityConstraintViolationException("Non puoi eliminare un autore se ha dei libri");
 			}
@@ -105,6 +106,20 @@ public class AutoreServiceImpl implements AutoreService {
 			entityManager.getTransaction().rollback();
 			e.printStackTrace();
 			throw e;
+		}
+	}
+
+	@Override
+	public List<Autore> cercaAutore(Autore autoreInstance) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+			autoreDAO.setEntityManager(entityManager);
+			return autoreDAO.searchAutore(autoreInstance);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			entityManager.close();
 		}
 	}
 

@@ -1,6 +1,6 @@
 package it.solvingteam.bibliotecaweb.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,14 +28,14 @@ public class Autore {
 	private String cognome;
 	
 	@Column(name = "data_nascita")
-	private Date dataNascita;
+	private LocalDate dataNascita;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "autore")
 	private Set<Libro> listaLibri = new HashSet<>();
 	
 	public Autore() {}
 	
-	public Autore(String nome, String cognome, Date dataNascita) {
+	public Autore(String nome, String cognome, LocalDate dataNascita) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataNascita = dataNascita;
@@ -65,11 +65,11 @@ public class Autore {
 		this.cognome = cognome;
 	}
 
-	public Date getDataNascita() {
+	public LocalDate getDataNascita() {
 		return dataNascita;
 	}
 
-	public void setDataNascita(Date dataNascita) {
+	public void setDataNascita(LocalDate dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 
@@ -83,7 +83,7 @@ public class Autore {
 
 	@Override
 	public String toString() {
-		return "Autore [id: " + id + ", nome: " + nome + ", cognome: " + cognome + ", dataNascita: " +  "]";
+		return "Autore [id: " + id + ", nome: " + nome + ", cognome: " + cognome + ", dataNascita: " + dataNascita + "]";
 	}
 
 	@Override

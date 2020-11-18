@@ -115,7 +115,7 @@
 					I campi con <span class="text-danger">*</span> sono obbligatori
 				</h6>
 
-				<form method="post" action="./ExecuteUpdateLibroServlet"
+				<form method="post" action="${pageContext.request.contextPath}/ExecuteUpdateLibroServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">

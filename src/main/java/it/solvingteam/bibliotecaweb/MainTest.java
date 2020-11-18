@@ -1,5 +1,6 @@
 package it.solvingteam.bibliotecaweb;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,7 +17,8 @@ import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 import net.bytebuddy.asm.Advice.Local;
 import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 
-public class MainTest {
+public class MainTest
+ {
 
 	public static void main(String[] args) {
 
@@ -33,17 +35,27 @@ public class MainTest {
 			Ruolo r = new Ruolo();
 			Utente u = new Utente();
 
-			Calendar myCalendar = new GregorianCalendar(1265, 5 - 1, 21);
-			Date myDate = myCalendar.getTime();
-
+			
+			a= autoreService.caricaSingoloElemento(12l);
+			System.out.println(a);
+//			autoreService.rimuovi(a);
+			
+			
+			
+			
+//			LocalDate data = LocalDate.of(2020, 1, 10);
+//			
+//			a.setDataNascita(data);
+//			a.setCognome("prova");
+//			a.setNome("prova");
+//
+//		autoreService.inserisciNuovo(a);
 		
-		
-		l=libroService.caricaSingoloElemento(4l);
-		a=autoreService.caricaSingoloElemento(8l);
-		l.setAutore(a);
-		libroService.aggiorna(l);
-		
-		
+//		l=libroService.caricaSingoloElemento(4l);
+//		a=autoreService.caricaSingoloElemento(8l);
+//		l.setAutore(a);
+//		libroService.aggiorna(l);
+			
 		
 		
 		} catch (Exception e) {

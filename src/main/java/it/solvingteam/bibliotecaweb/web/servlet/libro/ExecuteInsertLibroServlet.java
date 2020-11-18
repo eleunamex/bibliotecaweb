@@ -1,6 +1,7 @@
 package it.solvingteam.bibliotecaweb.web.servlet.libro;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,6 +69,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 			Autore autore = new Autore();
 			autore.setNome(nomeAutoreInputParam);
 			autore.setCognome(cognomeAutoreInputParam);
+			autore.setDataNascita(LocalDate.parse(dataNascitaAutoreInputParam));
 			libro.setAutore(autore);
 
 			try {

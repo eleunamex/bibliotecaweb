@@ -16,6 +16,8 @@ public interface UtenteService {
 	public void inserisciNuovo(Utente utenteInstance) throws Exception;
 
 	public void rimuovi(Utente utenteInstance) throws Exception;
+	
+	public Utente autenticazione(String username, String password) throws Exception;
 
 	public void setUtenteDAO(UtenteDAO utenteDAO);
 }

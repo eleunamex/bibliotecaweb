@@ -56,7 +56,7 @@ public class LibroDAOImpl implements LibroDAO {
 		if (libroInstance == null) {
 			throw new Exception("Problema valore in input");
 		}
-		TypedQuery<Libro> query = entityManager.createQuery("select l from Libro l JOIN FETCH l.autore a where l.genere like ?1"
+		TypedQuery<Libro> query = entityManager.createQuery("select distinct l from Libro l JOIN FETCH l.autore a where l.genere like ?1"
 				+ " and l.titolo like ?2 and l.trama like ?3 and a.nome like ?4 and a.cognome like ?5 ", Libro.class);
 		String genere=libroInstance.getGenere();
 		String titolo=libroInstance.getTitolo();

@@ -6,6 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import it.solvingteam.bibliotecaweb.model.Utente;
+import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
+import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -13,29 +18,39 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String usernameParameter = request.getParameter("username");
+		String passwordParameter = request.getParameter("password");
+
+		Utente utente = new Utente();
+
+		UtenteService service = MyServiceFactory.getUtenteServiceInstance();
+
+		try {
+			utente = service.autenticazione(usernameParameter, passwordParameter);
+			if (utente != null) {
+				HttpSession oldSession = request.getSession(false);
+				if (oldSession != null) { // se già esiste una sessione
+					oldSession.invalidate(); // la invalida
+				}
+
+				HttpSession currentSession = request.getSession(); // crea una nuova sessione
+				currentSession.setAttribute("user", utente); // setta l'utente nella sessione
+				currentSession.setMaxInactiveInterval(3200);
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			} else {
+				request.setAttribute("errorMessage", "Username o password errati");
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Username o password errati");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
+
 	}
 
 }

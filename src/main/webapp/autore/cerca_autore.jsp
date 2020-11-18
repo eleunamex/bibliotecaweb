@@ -4,7 +4,7 @@
 <html lang="it">
 <head>
 <jsp:include page="../header.jsp" />
-<title>Cerca libro</title>
+<title>Cerca autore</title>
 
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet">
@@ -28,54 +28,34 @@
 
 		<div class='card'>
 			<div class='card-header'>
-				<h5>Cerca un libro</h5>
+				<h5>Cerca un autore</h5>
 			</div>
 			<div class='card-body'>
 			
 			<c:forEach var="ruolo" items="${user.listaRuoli}">
 					<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
-						<a href="../PrepareInsertLibro" id="submit"
-						class="btn btn-success">Aggiungi libro</a>
+						<a href="inserisci_autore.jsp" id="submit"
+						class="btn btn-success">Aggiungi autore</a>
 					</c:if>
 				</c:forEach>
 			
-				<form method="get" action="${pageContext.request.contextPath}/CercaLibroServlet"
+			
+				<form method="get" action="${pageContext.request.contextPath}/CercaAutoreServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label>Genere <span class="text-danger"></span>
-							</label> <input type="text" name="genere" id="genere"
-								class="form-control" placeholder="Inserire il genere" >
+							<label>Nome <span class="text-danger"></span>
+							</label> <input type="text" name="nome" id="nome"
+								class="form-control" placeholder="Inserire il nome" >
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>Titolo <span class="text-danger"></span>
-							</label> <input type="text" name="titolo" id="titolo"
-								class="form-control" placeholder="Inserire il titolo">
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label>Nome autore <span class="text-danger"></span>
-							</label> <input type="text" name="nomeAutore" id="nomeAutore"
-								class="form-control" placeholder="Inserire il nome">
-						</div>
-						
-						<div class="form-group col-md-6">
-							<label>Cognome autore <span class="text-danger"></span>
-							</label> <input type="text" name="cognomeAutore" id="cognomeAutore"
+							<label>Cognome <span class="text-danger"></span>
+							</label> <input type="text" name="cognome" id="cognome"
 								class="form-control" placeholder="Inserire il cognome">
 						</div>
-
-						<div class="form-group col-md-12">
-							<label>Trama <span class="text-danger"></span>
-							</label>
-							<div class="form-group">
-								<textarea class="form-control" id="trama" name="trama"
-									rows="1" placeholder="Inserire la trama" ></textarea>
-							</div>
-						</div>
-
+						
 					</div>
 
 					<button type="submit" name="submit" value="submit" id="submit"

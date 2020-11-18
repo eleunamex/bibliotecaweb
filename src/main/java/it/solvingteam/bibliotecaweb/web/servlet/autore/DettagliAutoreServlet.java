@@ -1,4 +1,4 @@
-package it.solvingteam.bibliotecaweb.web.servlet.libro;
+package it.solvingteam.bibliotecaweb.web.servlet.autore;
 
 import java.io.IOException;
 
@@ -9,53 +9,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.solvingteam.bibliotecaweb.model.Libro;
+import it.solvingteam.bibliotecaweb.model.Autore;
 import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
-import it.solvingteam.bibliotecaweb.service.libro.LibroService;
+import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 
 /**
- * Servlet implementation class DeleteLibroServlet
+ * Servlet implementation class DettagliLibroServlet
  */
-@WebServlet("/DeleteLibroServlet")
-public class DeleteLibroServlet extends HttpServlet {
+@WebServlet("/DettagliAutoreServlet")
+public class DettagliAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
 
+		String contextPath = request.getContextPath() + "/CercaAutoreServlet";
 		Long parametroIdLong;
+
 		
 		//controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect(contextPath);
 			return;
 		} else {
 			try {
 				parametroIdLong = Long.parseLong(request.getParameter("idDaInviareComeParametro"));
 			} catch (NumberFormatException nfe) {
-				response.sendRedirect("index.jsp");
+				response.sendRedirect(contextPath);
 				return;
 			}
 		}
 		
-		LibroService service = MyServiceFactory.getLibroServiceInstance();
+		AutoreService service = MyServiceFactory.getAutoreServiceInstance();
 		
-		Libro libro = new Libro();
-		libro.setId(parametroIdLong);
+		Autore autore = new Autore();
 		
 		try {
-			service.rimuovi(libro);
-			request.setAttribute("successMessage", "Libro eliminato");
+			autore=service.caricaSingoloElemento(parametroIdLong);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Operazione fallita");
 		}
+		request.setAttribute("autoreDaInviareAPaginaDettagli", autore);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CercaLibroServlet");
-
+		RequestDispatcher dispatcher = request.getRequestDispatcher("autore/dettagli_autore.jsp");
 		dispatcher.forward(request, response);
 	
 	}
+
 
 }

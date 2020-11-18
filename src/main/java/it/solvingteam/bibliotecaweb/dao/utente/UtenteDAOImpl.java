@@ -3,7 +3,9 @@ package it.solvingteam.bibliotecaweb.dao.utente;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
+import it.solvingteam.bibliotecaweb.model.Libro;
 import it.solvingteam.bibliotecaweb.model.Utente;
 
 public class UtenteDAOImpl implements UtenteDAO{
@@ -46,6 +48,14 @@ public class UtenteDAOImpl implements UtenteDAO{
 			throw new Exception("Problema valore in input");
 		}
 		entityManager.remove(entityManager.merge(utenteInstance));
+	}
+
+	@Override
+	public Utente authentication(String username, String password) throws Exception {
+		TypedQuery<Utente> query = entityManager.createQuery("select u from Utente u JOIN FETCH u.listaRuoli r where u.username = ?1 and u.password = ?2 and u.stato='ATTIVO' ", Utente.class);
+		query.setParameter(1, username);
+		query.setParameter(2, password);
+		return query.getSingleResult();
 	}
 
 }

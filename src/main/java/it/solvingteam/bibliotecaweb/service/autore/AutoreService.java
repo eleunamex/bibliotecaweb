@@ -17,5 +17,7 @@ public interface AutoreService {
 
 	public void rimuovi(Autore autoreInstance) throws Exception;
 	
+	public List<Autore> cercaAutore(Autore autoreInstance) throws Exception;
+	
 	public void setAutoreDAO(AutoreDAO autoreDAO);
 }
