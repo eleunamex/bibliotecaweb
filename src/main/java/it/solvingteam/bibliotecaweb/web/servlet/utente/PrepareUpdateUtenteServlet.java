@@ -14,47 +14,44 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 
 /**
- * Servlet implementation class DettagliUtenteServlet
+ * Servlet implementation class PrepareUpdateUtenteServlet
  */
-@WebServlet("/DettagliUtenteServlet")
-public class DettagliUtenteServlet extends HttpServlet {
+@WebServlet("/PrepareUpdateUtenteServlet")
+public class PrepareUpdateUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
-
-		String contextPath = request.getContextPath() + "/CercaUtenteServlet";
 		Long parametroIdLong;
-
-		
-		//controlli
+		// controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
-			response.sendRedirect(contextPath);
+			response.sendRedirect("index");
 			return;
 		} else {
 			try {
 				parametroIdLong = Long.parseLong(request.getParameter("idDaInviareComeParametro"));
 			} catch (NumberFormatException nfe) {
-				response.sendRedirect(contextPath);
+				response.sendRedirect("index.jsp");
 				return;
 			}
 		}
-		
+
 		UtenteService service = MyServiceFactory.getUtenteServiceInstance();
-		
+
 		Utente utente = new Utente();
-		
+
 		try {
-			utente=service.caricaSingoloElemento(parametroIdLong);
+			utente = service.caricaSingoloElemento(parametroIdLong);
+			request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("utenteDaInviareAPaginaDettagli", utente);
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("utente/dettagli_utente.jsp");
+		request.setAttribute("utenteDaInviareAPaginaModifica", utente);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("utente/modifica_utente.jsp");
 		dispatcher.forward(request, response);
+
 	}
 
 }

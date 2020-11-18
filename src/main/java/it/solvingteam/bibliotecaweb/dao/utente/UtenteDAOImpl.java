@@ -5,9 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import it.solvingteam.bibliotecaweb.model.Autore;
-import it.solvingteam.bibliotecaweb.model.Libro;
-import it.solvingteam.bibliotecaweb.model.StatoUtente;
 import it.solvingteam.bibliotecaweb.model.Utente;
 
 public class UtenteDAOImpl implements UtenteDAO{

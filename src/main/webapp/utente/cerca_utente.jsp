@@ -32,7 +32,7 @@
 			</div>
 			<div class='card-body'>
 			
-						<a href="inserisci_utente.jsp" id="submit"
+						<a href="${pageContext.request.contextPath}/PrepareInsertUtenteServlet" id="submit"
 						class="btn btn-success">Aggiungi utente</a>
 			
 			

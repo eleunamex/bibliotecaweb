@@ -14,30 +14,27 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 
 /**
- * Servlet implementation class DettagliUtenteServlet
+ * Servlet implementation class DeleteUtenteServlet
  */
-@WebServlet("/DettagliUtenteServlet")
-public class DettagliUtenteServlet extends HttpServlet {
+@WebServlet("/DeleteUtenteServlet")
+public class DeleteUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String parametroIdString = request.getParameter("idDaInviareComeParametro");
-
-		String contextPath = request.getContextPath() + "/CercaUtenteServlet";
+String parametroIdString = request.getParameter("idDaInviareComeParametro");
+		
 		Long parametroIdLong;
-
 		
 		//controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
-			response.sendRedirect(contextPath);
+			response.sendRedirect("index.jsp");
 			return;
 		} else {
 			try {
 				parametroIdLong = Long.parseLong(request.getParameter("idDaInviareComeParametro"));
 			} catch (NumberFormatException nfe) {
-				response.sendRedirect(contextPath);
+				response.sendRedirect("index.jsp");
 				return;
 			}
 		}
@@ -45,16 +42,21 @@ public class DettagliUtenteServlet extends HttpServlet {
 		UtenteService service = MyServiceFactory.getUtenteServiceInstance();
 		
 		Utente utente = new Utente();
+		utente.setId(parametroIdLong);
 		
 		try {
-			utente=service.caricaSingoloElemento(parametroIdLong);
+			service.rimuovi(utente);
+			request.setAttribute("successMessage", "Utente eliminato");
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("errorMessage", "Operazione fallita");
 		}
-		request.setAttribute("utenteDaInviareAPaginaDettagli", utente);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("CercaUtenteServlet");
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("utente/dettagli_utente.jsp");
 		dispatcher.forward(request, response);
+	
 	}
+
 
 }

@@ -136,7 +136,7 @@
 							<label for="exampleFormControlSelect1">Autore</label> <select
 								class="form-control" id="select_autore" name="idAutore">
 								<c:forEach items="${requestScope.listaAutoriAttribute}" var="autore">
-								<option value="${libro.autore.id}" ${libro.autore.id == autore.id ? 'selected' : ''}>
+								<option value="${libro.autore.id}" ${libro.autore.id eq autore.id ? 'selected' : ''}>
 									${autore.nome} ${autore.cognome}
 								</option>
 							</c:forEach>

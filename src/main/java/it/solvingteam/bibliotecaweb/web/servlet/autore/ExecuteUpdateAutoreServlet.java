@@ -35,7 +35,7 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 		autore.setId(Long.parseLong(idAutoreInputParam));
 		autore.setNome(nomeInputParam);
 		autore.setCognome(cognomeInputParam);
-		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam));
+		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
 		
 		try {
 			MyServiceFactory.getAutoreServiceInstance().aggiorna(autore);

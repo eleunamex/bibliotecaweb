@@ -35,7 +35,7 @@ public class ExecuteInsertAutoreServlet extends HttpServlet {
 		Autore autore = new Autore();
 		autore.setNome(nomeInputParam);
 		autore.setCognome(cognomeInputParam);
-		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam));
+		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
 		
 		try {
 			MyServiceFactory.getAutoreServiceInstance().inserisciNuovo(autore);
