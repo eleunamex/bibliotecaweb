@@ -15,7 +15,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class ExecuteInsertUtenteServlet
  */
-@WebServlet("/ExecuteInsertUtenteServlet")
+@WebServlet("/insert/ExecuteInsertUtenteServlet")
 public class ExecuteInsertUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class ExecuteInsertUtenteServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
+			request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
 			return;
 		}
 
@@ -57,12 +57,12 @@ public class ExecuteInsertUtenteServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Operazione fallita");
 			try {
 				request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
-				request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
+				request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
+		request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
 	}
 
 }

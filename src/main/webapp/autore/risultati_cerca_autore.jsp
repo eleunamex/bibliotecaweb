@@ -45,7 +45,11 @@
 				<h5>Lista degli autori</h5>
 			</div>
 			<div class='card-body'>
-
+					<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
+						<a href="autore/inserisci_autore.jsp" id="submit"
+						class="btn btn-success">Aggiungi autore</a>
+					</c:if>
+				
 				<c:if test="${!empty requestScope.listaAutoriAttribute}">
 
 					<div class='table-responsive'>
@@ -68,24 +72,24 @@
 										<td><c:out value="${autore.cognome}" /></td>
 										<td><c:out value="${autore.dataNascita}" /></td>
 										<td><a class="btn  btn-sm btn-outline-secondary"
-											href="DettagliAutoreServlet?idDaInviareComeParametro=
+											href="${pageContext.request.contextPath}/DettagliAutoreServlet?idDaInviareComeParametro=
 											<c:out value="${autore.id}"/>">Visualizza
-										</a> <c:forEach var="ruolo" items="${user.listaRuoli}">
-												<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
+										</a> 
+												<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
 													<a class="btn  btn-sm btn-outline-primary ml-2 mr-2"
-														href="PrepareUpdateAutoreServlet?idDaInviareComeParametro=
+														href="${pageContext.request.contextPath}/update/PrepareUpdateAutoreServlet?idDaInviareComeParametro=
 												<c:out value="${autore.id}"/>&cercaNomeAutore=${requestScope.cercaNomeAutore}&
 												cercaCognomeAutore=${requestScope.cercaCognomeAutore}">Modifica
 													</a>
 												</c:if>
-											</c:forEach> <c:forEach var="ruolo" items="${user.listaRuoli}">
-												<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
+										
+												<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
 													<button class="btn btn-outline-danger btn-sm"
 														data-toggle="modal"
 														data-target="#myModal<c:out value="${autore.id}"/>">Elimina
 													</button>
 												</c:if>
-											</c:forEach></td>
+										</td>
 
 
 
@@ -112,7 +116,7 @@
 													<button type="button" class="btn btn-secondary"
 														data-dismiss="modal">Annulla</button>
 													<a type="button" class="btn btn-danger"
-														href="DeleteAutoreServlet?idDaInviareComeParametro=
+														href="${pageContext.request.contextPath}/delete/DeleteAutoreServlet?idDaInviareComeParametro=
 													<c:out value="${autore.id}"/>">Delete
 													</a>
 												</div>

@@ -34,7 +34,7 @@
 				alert('Trama non è valida');
 				stopSubmit();
 			}
-			if ($(this).val() == "0") {
+			if ($("#select_autore").val() == "0") {
 				var nome = $('#nome').val();
 				var cognome = $('#cognome').val();	
 				if(nome == ""){
@@ -125,7 +125,7 @@
 					I campi con <span class="text-danger">*</span> sono obbligatori
 				</h6>
 
-				<form method="post" action="${pageContext.request.contextPath}/ExecuteInsertLibroServlet"
+				<form method="post" action="${pageContext.request.contextPath}/insert/ExecuteInsertLibroServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">

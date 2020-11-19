@@ -16,7 +16,7 @@ import it.solvingteam.bibliotecaweb.service.libro.LibroService;
 /**
  * Servlet implementation class PrepareUpdateLibroServlet
  */
-@WebServlet("/PrepareUpdateLibroServlet")
+@WebServlet("/update/PrepareUpdateLibroServlet")
 public class PrepareUpdateLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
@@ -52,7 +52,7 @@ public class PrepareUpdateLibroServlet extends HttpServlet {
 		
 		request.setAttribute("libroDaInviareAPaginaModifica", libro);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("libro/modifica_libro.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../libro/modifica_libro.jsp");
 		dispatcher.forward(request, response);
 		
 	}

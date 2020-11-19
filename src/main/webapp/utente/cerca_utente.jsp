@@ -41,10 +41,6 @@
 			</div>
 			<div class='card-body'>
 			
-						<a href="${pageContext.request.contextPath}/PrepareInsertUtenteServlet" id="submit"
-						class="btn btn-success">Aggiungi utente</a>
-			
-			
 				<form method="get" action="${pageContext.request.contextPath}/CercaUtenteServlet"
 					novalidate="novalidate" id="form">
 

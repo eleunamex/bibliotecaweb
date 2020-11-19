@@ -43,14 +43,6 @@
 			</div>
 			<div class='card-body'>
 			
-			<c:forEach var="ruolo" items="${user.listaRuoli}">
-					<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
-						<a href="inserisci_autore.jsp" id="submit"
-						class="btn btn-success">Aggiungi autore</a>
-					</c:if>
-				</c:forEach>
-			
-			
 				<form method="get" action="${pageContext.request.contextPath}/CercaAutoreServlet"
 					novalidate="novalidate" id="form">
 

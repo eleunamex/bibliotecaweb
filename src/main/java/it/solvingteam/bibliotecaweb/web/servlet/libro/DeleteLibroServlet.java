@@ -16,7 +16,7 @@ import it.solvingteam.bibliotecaweb.service.libro.LibroService;
 /**
  * Servlet implementation class DeleteLibroServlet
  */
-@WebServlet("/DeleteLibroServlet")
+@WebServlet("/delete/DeleteLibroServlet")
 public class DeleteLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class DeleteLibroServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Operazione fallita");
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CercaLibroServlet");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../CercaLibroServlet");
 
 		dispatcher.forward(request, response);
 	

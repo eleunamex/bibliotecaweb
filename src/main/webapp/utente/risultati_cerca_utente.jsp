@@ -38,7 +38,8 @@
 				<h5>Lista degli utenti</h5>
 			</div>
 			<div class='card-body'>
-						
+						<a href="${pageContext.request.contextPath}/insert/PrepareInsertUtenteServlet" id="submit"
+						class="btn btn-success">Aggiungi utente</a>
 			<c:if test="${!empty requestScope.listaUtentiAttribute}">
 			
 				<div class='table-responsive'>
@@ -61,15 +62,15 @@
 									<td><c:out value="${utente.username}"/></td>
 									<td>
 										<a class="btn  btn-sm btn-outline-secondary"
-											href="DettagliUtenteServlet?idDaInviareComeParametro=
+											href="${pageContext.request.contextPath}/DettagliUtenteServlet?idDaInviareComeParametro=
 											<c:out value="${utente.id}"/>">Visualizza
 										</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2"
-												href="PrepareUpdateUtenteServlet?idDaInviareComeParametro=
+												href="${pageContext.request.contextPath}/update/PrepareUpdateUtenteServlet?idDaInviareComeParametro=
 												<c:out value="${utente.id}"/>">Modifica
 												</a>
 											<button class="btn btn-outline-danger btn-sm"data-toggle="modal"
-												data-target="#myModal<c:out value="${utente.id}"/>">Elimina
+												data-target="#myModal<c:out value="${utente.id}"/>">Disattiva
 											</button>
 									</td>
 									
@@ -83,7 +84,7 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Vuoi eliminare l'utente?</h5>
+												<h5 class="modal-title" id="exampleModalLabel">Vuoi disattivare l'utente?</h5>
 												<button type="button" class="close" data-dismiss="modal"
 													aria-label="Close">
 													<span aria-hidden="true">&times;</span>
@@ -97,7 +98,7 @@
 													data-dismiss="modal">Annulla
 												</button>
 												<a type="button" class="btn btn-danger"
-													href="DeleteUtenteServlet?idDaInviareComeParametro=
+													href="${pageContext.request.contextPath}/delete/DeleteUtenteServlet?idDaInviareComeParametro=
 													<c:out value="${utente.id}"/>">Delete
 												</a>
 											</div>

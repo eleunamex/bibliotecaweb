@@ -41,12 +41,7 @@
 			</div>
 			<div class='card-body'>
 			
-			<c:forEach var="ruolo" items="${user.listaRuoli}">
-					<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
-						<a href="../PrepareInsertLibro" id="submit"
-						class="btn btn-success">Aggiungi libro</a>
-					</c:if>
-				</c:forEach>
+			
 			
 				<form method="get" action="${pageContext.request.contextPath}/CercaLibroServlet"
 					novalidate="novalidate" id="form">

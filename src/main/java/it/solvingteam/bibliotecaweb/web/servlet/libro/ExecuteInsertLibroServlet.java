@@ -16,7 +16,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class ExecuteInsertLibro
  */
-@WebServlet("/ExecuteInsertLibroServlet")
+@WebServlet("/insert/ExecuteInsertLibroServlet")
 public class ExecuteInsertLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("libro/inserisci_libro.jsp").forward(request, response);
+			request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
 			return;
 		}
 
@@ -52,7 +52,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			request.getRequestDispatcher("libro/inserisci_libro.jsp").forward(request, response);
+			request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
 			return;
 		}
 
@@ -94,7 +94,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("libro/inserisci_libro.jsp").forward(request, response);
+		request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
 
 	}
 

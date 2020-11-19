@@ -10,6 +10,45 @@
 <link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 
+<script
+	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script>
+
+	$(function() {
+		$("#submit").click(function() {
+			validateForm();
+		});
+
+		function validateForm() {
+			var nome = $('#nome').val();
+			var cognome = $('#cognome').val();
+			var dataNascita = $('#dataNascita').val();
+
+			if (nome == "") {
+				alert('Nome non è valido');
+				stopSubmit();
+			}
+			if (cognome == "") {
+				alert('Cognome non è valido');
+				stopSubmit();
+			}
+			if (dataNascita == "") {
+				alert('Data di nascita non è valida');
+				stopSubmit();
+			}
+
+			location.reload();
+		}
+
+		function stopSubmit() {
+			$("#form").submit(function(e) {
+				e.preventDefault();
+			});
+		}
+
+	});
+</script>
+
 </head>
 <body>
 	<jsp:include page="../navbar.jsp" />
@@ -40,12 +79,12 @@
 				<h5>Inserisci un autore</h5>
 			</div>
 			<div class='card-body'>
-				<form method="post" action="${pageContext.request.contextPath}/ExecuteInsertAutoreServlet"
+				<form method="post" action="${pageContext.request.contextPath}/insert/ExecuteInsertAutoreServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">
 						<div class="form-group col-md-4">
-							<label>Nome <span class="text-danger"></span>
+							<label>Nome<span class="text-danger"></span>
 							</label> <input type="text" name="nome" id="nome"
 								class="form-control" placeholder="Inserire il nome" >
 						</div>

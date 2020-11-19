@@ -16,7 +16,7 @@ import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 /**
  * Servlet implementation class PrepareUpdateUtenteServlet
  */
-@WebServlet("/PrepareUpdateUtenteServlet")
+@WebServlet("/update/PrepareUpdateUtenteServlet")
 public class PrepareUpdateUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,7 +49,7 @@ public class PrepareUpdateUtenteServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("utenteDaInviareAPaginaModifica", utente);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("utente/modifica_utente.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../utente/modifica_utente.jsp");
 		dispatcher.forward(request, response);
 
 	}

@@ -12,6 +12,7 @@
 <script
 	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 <script>
+	
 	$(function() {
 		$("#submit").click(function() {
 			validateForm();
@@ -22,7 +23,7 @@
 			var titolo = $('#titolo').val();
 			var trama = $('#trama').val();
 
-			if ( genere == "") {
+			if (genere == "") {
 				alert('Genere non è valido');
 				stopSubmit();
 			}
@@ -34,21 +35,7 @@
 				alert('Trama non è valida');
 				stopSubmit();
 			}
-			/*
-			if ($(this).val() == "0") {
-				var nome = $('#nome').val();
-				var cognome = $('#cognome').val();	
-				if(nome == ""){
-					alert('Nome autore non è valido');
-					stopSubmit();
-				}
-				if(cognome =="" ){
-					alert('Cognome autore non è valido');
-					stopSubmit();
-				}
-			}
-			*/
-			
+
 			location.reload();
 		}
 
@@ -57,20 +44,8 @@
 				e.preventDefault();
 			});
 		}
-		
-/*
-		$("#nuovo_autore").hide();
-		$('#select_autore').change(function() {
-			if ($(this).val() == "0") {
-				$("#nuovo_autore").show();
-			}else{
-				$("#nuovo_autore").hide();
-			}
-		})
-*/
+
 	});
-
-
 </script>
 </head>
 <c:set var="libro" scope="page" value="${requestScope.libroDaInviareAPaginaModifica}" />
@@ -121,7 +96,7 @@
 					I campi con <span class="text-danger">*</span> sono obbligatori
 				</h6>
 
-				<form method="post" action="${pageContext.request.contextPath}/ExecuteUpdateLibroServlet"
+				<form method="post" action="${pageContext.request.contextPath}/update/ExecuteUpdateLibroServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">

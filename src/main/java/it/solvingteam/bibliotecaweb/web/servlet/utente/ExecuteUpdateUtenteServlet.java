@@ -15,7 +15,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class ExecuteUpdateUtenteServlet
  */
-@WebServlet("/ExecuteUpdateUtenteServlet")
+@WebServlet("/update/ExecuteUpdateUtenteServlet")
 public class ExecuteUpdateUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class ExecuteUpdateUtenteServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("utente/modifica_utente.jsp").forward(request, response);
+			request.getRequestDispatcher("../utente/modifica_utente.jsp").forward(request, response);
 			return;
 		}
 
@@ -67,13 +67,13 @@ public class ExecuteUpdateUtenteServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Operazione fallita");
 			try {
 				request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
-				request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
+				request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 
-		request.getRequestDispatcher("utente/modifica_utente.jsp").forward(request, response);
+		request.getRequestDispatcher("../utente/modifica_utente.jsp").forward(request, response);
 	}
 
 }

@@ -60,6 +60,11 @@
 				<h5>Lista dei libri</h5>
 			</div>
 			<div class='card-body'>
+			
+					<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
+						<a href="${pageContext.request.contextPath}/insert/PrepareInsertLibro" id="submit"
+						class="btn btn-success">Aggiungi libro</a>
+					</c:if>
 
 				<c:if test="${!empty requestScope.listaLibriAttribute}">
 
@@ -84,23 +89,23 @@
 										<td><c:out
 												value="${libro.autore.nome} ${libro.autore.cognome}" /></td>
 										<td><a class="btn  btn-sm btn-outline-secondary"
-											href="DettagliLibroServlet?idDaInviareComeParametro=
+											href="${pageContext.request.contextPath}/DettagliLibroServlet?idDaInviareComeParametro=
 											<c:out value="${libro.id}"/>">Visualizza
-										</a> <c:forEach var="ruolo" items="${user.listaRuoli}">
-												<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
+										</a> 
+												<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
 													<a class="btn  btn-sm btn-outline-primary ml-2 mr-2"
-														href="PrepareUpdateLibroServlet?idDaInviareComeParametro=
+														href="${pageContext.request.contextPath}/update/PrepareUpdateLibroServlet?idDaInviareComeParametro=
 														<c:out value="${libro.id}"/>">Modifica
 													</a>
 												</c:if>
-											</c:forEach> <c:forEach var="ruolo" items="${user.listaRuoli}">
-												<c:if test="${ruolo.codice ne 'GUEST_ROLE' }">
+											
+												<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
 													<button class="btn btn-outline-danger btn-sm"
 														data-toggle="modal"
 														data-target="#myModal<c:out value="${libro.id}"/>">Elimina
 													</button>
 												</c:if>
-											</c:forEach></td>
+										</td>
 
 									</tr>
 
@@ -126,7 +131,7 @@
 													<button type="button" class="btn btn-secondary"
 														data-dismiss="modal">Annulla</button>
 													<a type="button" class="btn btn-danger"
-														href="DeleteLibroServlet?idDaInviareComeParametro=
+														href="${pageContext.request.contextPath}/delete/DeleteLibroServlet?idDaInviareComeParametro=
 													<c:out value="${libro.id}"/>">Delete
 													</a>
 												</div>

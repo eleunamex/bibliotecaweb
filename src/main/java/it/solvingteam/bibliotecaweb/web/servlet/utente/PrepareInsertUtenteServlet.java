@@ -13,7 +13,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class PrepareInsertUtenteServlet
  */
-@WebServlet("/PrepareInsertUtenteServlet")
+@WebServlet("/insert/PrepareInsertUtenteServlet")
 public class PrepareInsertUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class PrepareInsertUtenteServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
+		request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
 	}
 
 	

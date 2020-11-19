@@ -16,7 +16,7 @@ import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 /**
  * Servlet implementation class PrepareUpdateAutoreServlet
  */
-@WebServlet("/PrepareUpdateAutoreServlet")
+@WebServlet("/update/PrepareUpdateAutoreServlet")
 public class PrepareUpdateAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,7 +54,7 @@ public class PrepareUpdateAutoreServlet extends HttpServlet {
 		request.setAttribute("cercaNomeAutore", cercaNomeAutore);
 		request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("autore/modifica_autore.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../autore/modifica_autore.jsp");
 		dispatcher.forward(request, response);
 		
 	}

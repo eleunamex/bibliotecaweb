@@ -17,7 +17,7 @@ import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 /**
  * Servlet implementation class DeleteAutoreServlet
  */
-@WebServlet("/DeleteAutoreServlet")
+@WebServlet("/delete/DeleteAutoreServlet")
 public class DeleteAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
@@ -56,7 +56,7 @@ public class DeleteAutoreServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Operazione fallita");
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("CercaAutoreServlet");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../CercaAutoreServlet");
 
 		dispatcher.forward(request, response);
 	

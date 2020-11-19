@@ -12,7 +12,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class PrepareInsertLibro
  */
-@WebServlet("/PrepareInsertLibro")
+@WebServlet("/insert/PrepareInsertLibro")
 public class PrepareInsertLibro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,7 +24,7 @@ public class PrepareInsertLibro extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("libro/inserisci_libro.jsp").forward(request, response);
+		request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
 	
 	}
 

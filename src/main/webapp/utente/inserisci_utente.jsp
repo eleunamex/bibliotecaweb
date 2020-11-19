@@ -12,26 +12,37 @@
 <script
 	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 <script>
+
 	$(function() {
 		$("#submit").click(function() {
 			validateForm();
 		});
 
 		function validateForm() {
-			var genere = $('#genere').val();
-			var titolo = $('#titolo').val();
-			var trama = $('#trama').val();
-
-			if (genere == "") {
-				alert('Genere non è valido');
+			var nome = $('#nome').val();
+			var cognome = $('#cognome').val();
+			var username = $('#username').val();
+			var password = $('#password').val();
+			var idRuolo = $('#idRuolo').val();
+			
+			if (nome == "") {
+				alert('Nome non è valido');
 				stopSubmit();
 			}
-			if (titolo == "") {
-				alert('Titolo non è valido');
+			if (cognome == "") {
+				alert('Cognome non è valido');
 				stopSubmit();
 			}
-			if (trama == "") {
-				alert('Trama non è valida');
+			if (username == "") {
+				alert('Username non è valido');
+				stopSubmit();
+			}
+			if (password == "") {
+				alert('Password non è valida');
+				stopSubmit();
+			}
+			if (idRuolo == "") {
+				alert('Selezionare almeno un ruolo');
 				stopSubmit();
 			}
 
@@ -44,11 +55,6 @@
 			});
 		}
 
-		
-
-	});
-
-	
 	});
 </script>
 </head>
@@ -89,7 +95,7 @@
 				</h6>
 
 				<form method="post"
-					action="${pageContext.request.contextPath}/ExecuteInsertUtenteServlet"
+					action="${pageContext.request.contextPath}/insert/ExecuteInsertUtenteServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">

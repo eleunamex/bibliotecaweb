@@ -12,6 +12,45 @@
 <script
 	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 
+<script
+	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script>
+
+	$(function() {
+		$("#submit").click(function() {
+			validateForm();
+		});
+
+		function validateForm() {
+			var nome = $('#nome').val();
+			var cognome = $('#cognome').val();
+			var dataNascita = $('#dataNascita').val();
+
+			if (nome == "") {
+				alert('Nome non è valido');
+				stopSubmit();
+			}
+			if (cognome == "") {
+				alert('Cognome non è valido');
+				stopSubmit();
+			}
+			if (dataNascita == "") {
+				alert('Data di nascita non è valida');
+				stopSubmit();
+			}
+
+			location.reload();
+		}
+
+		function stopSubmit() {
+			$("#form").submit(function(e) {
+				e.preventDefault();
+			});
+		}
+
+	});
+</script>
+
 </head>
 
 <c:set var="autore" scope="page"
@@ -47,7 +86,7 @@
 			</div>
 			<div class='card-body'>
 				<form method="post"
-					action="${pageContext.request.contextPath}/ExecuteUpdateAutoreServlet"
+					action="${pageContext.request.contextPath}/update/ExecuteUpdateAutoreServlet"
 					novalidate="novalidate" id="form">
 
 					<div class="form-row">

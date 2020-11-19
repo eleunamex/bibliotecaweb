@@ -15,7 +15,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class ExecuteUpdateAutoreServlet
  */
-@WebServlet("/ExecuteUpdateAutoreServlet")
+@WebServlet("/update/ExecuteUpdateAutoreServlet")
 public class ExecuteUpdateAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,7 +31,7 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 		
 		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()){
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
-			request.getRequestDispatcher("autore/modifica_autore.jsp").forward(request, response);
+			request.getRequestDispatcher("../autore/modifica_autore.jsp").forward(request, response);
 			return;
 		}
 		
@@ -55,13 +55,13 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 		
 		try {
 		request.setAttribute("listaAutoriAttribute",MyServiceFactory.getAutoreServiceInstance().cercaAutore(autoreSearch));
-		request.setAttribute("cercaNomeAutore", nomeInputParam);
-		request.setAttribute("cercaCognomeAutore", cognomeInputParam);
+		request.setAttribute("cercaNomeAutore", cercaNomeAutore);
+		request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("autore/risultati_cerca_autore.jsp").forward(request, response);
+		request.getRequestDispatcher("../autore/risultati_cerca_autore.jsp").forward(request, response);
 	}
 
 }

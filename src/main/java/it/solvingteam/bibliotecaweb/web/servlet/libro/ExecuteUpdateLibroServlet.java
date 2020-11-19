@@ -14,7 +14,7 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 /**
  * Servlet implementation class ExecuteUpdateLibroServlet
  */
-@WebServlet("/ExecuteUpdateLibroServlet")
+@WebServlet("/update/ExecuteUpdateLibroServlet")
 public class ExecuteUpdateLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			request.getRequestDispatcher("libro/modifica_libro.jsp").forward(request, response);
+			request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
 			return;
 		}
 
@@ -53,7 +53,7 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			request.getRequestDispatcher("libro/modifica_libro.jsp").forward(request, response);
+			request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
 			return;
 		}
 
@@ -69,7 +69,7 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("libro/modifica_libro.jsp").forward(request, response);
+		request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
 
 	}
 

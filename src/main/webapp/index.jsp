@@ -33,7 +33,7 @@ body {
 				<p>This is a template for a simple marketing or informational
 					website. It includes a large callout called a jumbotron and three
 					supporting pieces of content. Use it as a starting point to create
-					something more unique.</p>
+					something more unique. isAdmin:${sessionScope.isAdmin} isClassic:${sessionScope.isClassic} isGuest:${sessionScope.isGuest}</p>
 				<div class="row">
 					<p>
 						<a class="btn btn-success btn-lg" href="libro/cerca_libro.jsp"
@@ -45,15 +45,13 @@ body {
 							role="button">Cerca autore &raquo; </a>
 					</p>
 					&nbsp;
-					<c:forEach var="ruolo" items="${user.listaRuoli}">
-						<c:if test="${ruolo.codice eq 'ADMIN_ROLE' }">
+						<c:if test="${sessionScope.isAdmin eq true }">
 							<p>
 								<a class="btn btn-success btn-lg"
 									href="utente/cerca_utente.jsp" role="button">Cerca
 									utente &raquo; </a>
 							</p>
 						</c:if>
-					</c:forEach>
 
 				</div>
 			</div>
@@ -65,11 +63,7 @@ body {
 				<div class="col-md-4">
 					<h2>
 						Guests
-						<c:forEach var="ruolo" items="${user.listaRuoli}">
-							<c:if test="${ruolo.codice eq 'GUEST_ROLE' }">
-								<span class="badge badge-warning">(You)</span>
-							</c:if>
-						</c:forEach>
+						<span class="badge badge-warning">${sessionScope.isGuest eq true ? '(You)' : '' }</span>
 
 					</h2>
 					<p>Sono limitati ad osservare.</p>
@@ -77,22 +71,14 @@ body {
 				<div class="col-md-4">
 					<h2>
 						Classics
-						<c:forEach var="ruolo" items="${user.listaRuoli}">
-							<c:if test="${ruolo.codice eq 'CLASSIC_ROLE' }">
-								<span class="badge badge-warning">(You)</span>
-							</c:if>
-						</c:forEach>
+						<span class="badge badge-warning">${sessionScope.isClassic eq true ? '(You)' : '' }</span>
 					</h2>
 					<p>Gestiscono tutta la biblioteca.</p>
 				</div>
 				<div class="col-md-4">
 					<h2>
 						Administrators
-						<c:forEach var="ruolo" items="${user.listaRuoli}">
-							<c:if test="${ruolo.codice eq 'ADMIN_ROLE' }">
-								<span class="badge badge-warning">(You)</span>
-							</c:if>
-						</c:forEach>
+						<span class="badge badge-warning">${sessionScope.isAdmin eq true ? '(You)' : '' }</span>
 					</h2>
 					<p>Gestiscono tutta la biblioteca, utenti compresi.</p>
 
