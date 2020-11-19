@@ -49,17 +49,17 @@ public class MainTest
 //			}
 			
 			
-			u.setNome("prova");
-			u.setCognome("prova");
-			u.setUsername("prova");
-			u.setPassword("1234");
-			
-			
-			for(Ruolo ru : ruoloService.listAll()) {
-				u.getListaRuoli().add(ru);
-			}
-
-			utenteService.inserisciNuovo(u);
+//			u.setNome("prova");
+//			u.setCognome("prova");
+//			u.setUsername("prova");
+//			u.setPassword("1234");
+//			
+//			
+//			for(Ruolo ru : ruoloService.listAll()) {
+//				u.getListaRuoli().add(ru);
+//			}
+//
+//			utenteService.inserisciNuovo(u);
 			
 //			LocalDate data = LocalDate.of(2020, 1, 10);
 //			

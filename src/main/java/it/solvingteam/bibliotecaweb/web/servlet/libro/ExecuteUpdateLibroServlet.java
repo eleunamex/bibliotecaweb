@@ -1,13 +1,13 @@
 package it.solvingteam.bibliotecaweb.web.servlet.libro;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.solvingteam.bibliotecaweb.model.Autore;
 import it.solvingteam.bibliotecaweb.model.Libro;
 import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 
@@ -62,11 +62,8 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 		libro.setTitolo(titoloInputParam);
 		libro.setGenere(genereInputParam);
 		libro.setTrama(tramaInputParam);
-		Autore autore = new Autore();
-		autore.setId(idAutoreInputParamLong);
-		libro.setAutore(autore);
-
 		try {
+			libro.setAutore(MyServiceFactory.getAutoreServiceInstance().caricaSingoloElemento(idAutoreInputParamLong));
 			MyServiceFactory.getLibroServiceInstance().aggiorna(libro);
 			request.setAttribute("successMessage", "Libro aggiornato");
 		} catch (Exception e) {

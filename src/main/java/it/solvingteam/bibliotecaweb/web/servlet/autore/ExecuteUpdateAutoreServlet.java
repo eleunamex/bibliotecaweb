@@ -20,10 +20,14 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String nomeInputParam = request.getParameter("nome");
 		String cognomeInputParam = request.getParameter("cognome");
 		String dataNascitaInputParam = request.getParameter("dataNascita");
 		String idAutoreInputParam = request.getParameter("idAutore");
+		
+		String cercaNomeAutore = request.getParameter("cercaNomeAutore");
+		String cercaCognomeAutore = request.getParameter("cercaCognomeAutore");
 		
 		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()){
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
@@ -44,7 +48,20 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Operazione fallita");
 		}
-		request.getRequestDispatcher("autore/modifica_autore.jsp").forward(request, response);
+		
+		Autore autoreSearch = new Autore();
+		autoreSearch.setNome(cercaNomeAutore);
+		autoreSearch.setCognome(cercaCognomeAutore);
+		
+		try {
+		request.setAttribute("listaAutoriAttribute",MyServiceFactory.getAutoreServiceInstance().cercaAutore(autoreSearch));
+		request.setAttribute("cercaNomeAutore", nomeInputParam);
+		request.setAttribute("cercaCognomeAutore", cognomeInputParam);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("autore/risultati_cerca_autore.jsp").forward(request, response);
 	}
 
 }

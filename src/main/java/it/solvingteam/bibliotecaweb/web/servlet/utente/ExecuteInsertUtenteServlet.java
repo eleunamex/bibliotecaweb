@@ -25,9 +25,10 @@ public class ExecuteInsertUtenteServlet extends HttpServlet {
 		String cognomeInputParam = request.getParameter("cognome");
 		String usernameInputParam = request.getParameter("username");
 		String passwordInputParam = request.getParameter("password");
+		String[] idRuolo = request.getParameterValues("idRuolo");
 
 		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || usernameInputParam.isEmpty()
-				|| passwordInputParam.isEmpty()) {
+				|| passwordInputParam.isEmpty() || idRuolo == null) {
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 			try {
 				request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
@@ -43,21 +44,24 @@ public class ExecuteInsertUtenteServlet extends HttpServlet {
 		utente.setCognome(cognomeInputParam);
 		utente.setUsername(usernameInputParam);
 		utente.setPassword(passwordInputParam);
-		Ruolo r = new Ruolo();
 		try {
-			for (Ruolo ruolo : MyServiceFactory.getRuoloServiceInstance().listAll()) {
-				String ruoloInputParam = request.getParameter("idRuolo" + ruolo.getId());
-				if (ruoloInputParam != null) {
-					r.setId(Long.parseLong(ruoloInputParam));
-					utente.getListaRuoli().add(r);
-				}
+			for (String idRuoloSingolo : idRuolo) {
+				Ruolo ruolo = MyServiceFactory.getRuoloServiceInstance()
+						.caricaSingoloElemento(Long.parseLong(idRuoloSingolo));
+				utente.getListaRuoli().add(ruolo);
 			}
 			MyServiceFactory.getUtenteServiceInstance().inserisciNuovo(utente);
 			request.setAttribute("successMessage", "Utente inserito");
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("errorMessage", "Operazione fallita");
+			try {
+				request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
+				request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
-
 		request.getRequestDispatcher("utente/inserisci_utente.jsp").forward(request, response);
 	}
 

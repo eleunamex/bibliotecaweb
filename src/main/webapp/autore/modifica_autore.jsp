@@ -70,8 +70,14 @@
 						</div>
 
 					</div>
+					
 					<input type="hidden" class="form-control" name="idAutore" id="idAutore"
 						value="<c:out value="${autore.id}"/>" readonly>
+						<input type="hidden" class="form-control" name="cercaNomeAutore" id="cercaNomeAutore"
+						value="<c:out value="${requestScope.cercaNomeAutore}"/>" readonly>
+						<input type="hidden" class="form-control" name="cercaCognomeAutore" id="cercaCognomeAutore"
+						value="<c:out value="${requestScope.cercaCognomeAutore}"/>" readonly>
+						
 					<button type="submit" name="submit" value="submit" id="submit"
 						class="btn btn-success">Conferma</button>
 				</form>

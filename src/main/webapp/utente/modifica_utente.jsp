@@ -125,24 +125,26 @@
 						<div class="form-group col md-4">
 							<label for="exampleFormControlSelect1">Stato</label> <select
 								class="form-control" id="stato" name="stato">
-								<option value="ATTIVO"
-									${autore.stato eq 'ATTIVO' ? 'selected' : ''}>ATTIVO</option>
-								<option value="DISABILITATO"
-									${autore.stato ne 'ATTIVO' ? 'selected' : ''}>DISABILITATO</option>
+								<c:if test="${utente.stato eq 'ATTIVO' }">
+									<option value="ATTIVO" selected>ATTIVO</option>
+									<option value="DISABILITATO">DISABILITATO</option>
+								</c:if>
+								<c:if test="${utente.stato ne 'ATTIVO' }">
+									<option value="DISABILITATO" selected>DISABILITATO</option>
+									<option value="ATTIVO">ATTIVO</option>
+								</c:if>
 							</select>
 						</div>
 
 						<div class="form-group col md-4">
 							<label for="exampleFormControlSelect1">Ruoli</label>
-							<c:forEach items="${requestScope.listaRuoliAttribute}"
-								var="ruolo">
+							<c:forEach items="${requestScope.listaRuoliAttribute}" var="ruolo">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox"
-										value="${ruolo.id}" id="idRuolo${ruolo.id}"
-										name="idRuolo${ruolo.id}"
+									<input class="form-check-input" type="checkbox" value="${ruolo.id}" id="idRuolo" name="idRuolo"
 										<c:forEach items="${utente.listaRuoli}" var="ruoloUtente">
-												${ruoloUtente.id eq ruolo.id ? 'checked' : ''} 
-											</c:forEach>>
+											${ruoloUtente.id eq ruolo.id ? 'checked' : ''} 
+										</c:forEach>
+									>
 									<label class="form-check-label" for="defaultCheck1">
 										${ruolo.codice} </label>
 								</div>

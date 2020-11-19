@@ -85,6 +85,12 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
+			${errorMessage}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 
 		<div class="alert alert-danger alert-dismissible fade show d-none"
 			role="alert">
@@ -133,13 +139,13 @@
 						</div>
 
 						<div class="form-group col md-4">
-							<label for="exampleFormControlSelect1">Autore</label> <select
-								class="form-control" id="select_autore" name="idAutore">
+							<label for="exampleFormControlSelect1">Autore</label> 
+							<select class="form-control" id="idAutore" name="idAutore">
 								<c:forEach items="${requestScope.listaAutoriAttribute}" var="autore">
-								<option value="${libro.autore.id}" ${libro.autore.id eq autore.id ? 'selected' : ''}>
+									<option value="${autore.id}" ${libro.autore.id eq autore.id ? 'selected' : ''}>
 									${autore.nome} ${autore.cognome}
-								</option>
-							</c:forEach>
+									</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>

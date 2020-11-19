@@ -127,7 +127,7 @@
 									var="ruolo">
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" value="${ruolo.id}"
-											id="idRuolo${ruolo.id}" name="idRuolo${ruolo.id}"> 
+											id="idRuolo" name="idRuolo"> 
 											<label class="form-check-label"for="defaultCheck1"> 
 											${ruolo.codice}
 											</label>

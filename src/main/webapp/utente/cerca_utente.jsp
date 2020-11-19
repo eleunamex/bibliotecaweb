@@ -25,6 +25,15 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		<div
+			class="alert alert-success alert-dismissible fade show ${successMessage==null?'d-none': ''}"
+			role="alert">
+			${successMessage}
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 
 		<div class='card'>
 			<div class='card-header'>

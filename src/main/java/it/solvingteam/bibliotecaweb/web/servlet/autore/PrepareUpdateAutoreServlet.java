@@ -23,6 +23,9 @@ public class PrepareUpdateAutoreServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
+		String cercaNomeAutore = request.getParameter("cercaNomeAutore");
+		String cercaCognomeAutore = request.getParameter("cercaCognomeAutore");
+		
 		Long parametroIdLong;
 		//controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
@@ -48,6 +51,8 @@ public class PrepareUpdateAutoreServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("autoreDaInviareAPaginaModifica", autore);
+		request.setAttribute("cercaNomeAutore", cercaNomeAutore);
+		request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("autore/modifica_autore.jsp");
 		dispatcher.forward(request, response);

@@ -25,14 +25,14 @@ public class PrepareUpdateLibroServlet extends HttpServlet {
 		String parametroIdLibroDaModificareString = request.getParameter("idDaInviareComeParametro");
 		
 		String contextPath = request.getContextPath() + "/index.jsp";
-		Long parametroIdCategoriaDaModificare;
+		Long parametroIdLibroDaModificare;
 		//controlli
 		if (parametroIdLibroDaModificareString == null || parametroIdLibroDaModificareString.isEmpty()) {
 			response.sendRedirect(contextPath);
 			return;
 		} else {
 			try {
-				parametroIdCategoriaDaModificare = Long.parseLong(request.getParameter("idDaInviareComeParametro"));
+				parametroIdLibroDaModificare = Long.parseLong(request.getParameter("idDaInviareComeParametro"));
 			} catch (NumberFormatException nfe) {
 				response.sendRedirect(contextPath);
 				return;
@@ -44,7 +44,7 @@ public class PrepareUpdateLibroServlet extends HttpServlet {
 		Libro libro = new Libro();
 		
 		try {
-			libro=service.caricaSingoloElemento(parametroIdCategoriaDaModificare);
+			libro=service.caricaSingoloElemento(parametroIdLibroDaModificare);
 			request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,8 +54,6 @@ public class PrepareUpdateLibroServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("libro/modifica_libro.jsp");
 		dispatcher.forward(request, response);
-		
-		
 		
 	}
 

@@ -32,6 +32,9 @@ public class CercaAutoreServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		request.setAttribute("cercaNomeAutore", nomeInputParam);
+		request.setAttribute("cercaCognomeAutore", cognomeInputParam);
 		request.getRequestDispatcher("autore/risultati_cerca_autore.jsp").forward(request, response);
 	}
 
