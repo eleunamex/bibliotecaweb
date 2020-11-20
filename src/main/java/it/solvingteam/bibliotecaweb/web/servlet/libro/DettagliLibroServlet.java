@@ -19,17 +19,16 @@ import it.solvingteam.bibliotecaweb.service.libro.LibroService;
 @WebServlet("/DettagliLibroServlet")
 public class DettagliLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
 
 		String contextPath = request.getContextPath() + "/CercaLibroServlet";
 		Long parametroIdLong;
 
-		
-		//controlli
+		// controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
 			response.sendRedirect(contextPath);
 			return;
@@ -41,13 +40,13 @@ public class DettagliLibroServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		LibroService service = MyServiceFactory.getLibroServiceInstance();
-		
+
 		Libro libro = new Libro();
-		
+
 		try {
-			libro=service.caricaSingoloElemento(parametroIdLong);
+			libro = service.caricaSingoloElemento(parametroIdLong);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,8 +54,7 @@ public class DettagliLibroServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("libro/dettagli_libro.jsp");
 		dispatcher.forward(request, response);
-	
-	}
 
+	}
 
 }

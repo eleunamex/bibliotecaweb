@@ -19,14 +19,16 @@ import it.solvingteam.bibliotecaweb.service.libro.LibroService;
 @WebServlet("/update/PrepareUpdateLibroServlet")
 public class PrepareUpdateLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-  
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String parametroIdLibroDaModificareString = request.getParameter("idDaInviareComeParametro");
-		
+
 		String contextPath = request.getContextPath() + "/index.jsp";
 		Long parametroIdLibroDaModificare;
-		//controlli
+
+		// controlli
 		if (parametroIdLibroDaModificareString == null || parametroIdLibroDaModificareString.isEmpty()) {
 			response.sendRedirect(contextPath);
 			return;
@@ -38,24 +40,23 @@ public class PrepareUpdateLibroServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		LibroService service = MyServiceFactory.getLibroServiceInstance();
-		
+
 		Libro libro = new Libro();
-		
+
 		try {
-			libro=service.caricaSingoloElemento(parametroIdLibroDaModificare);
+			libro = service.caricaSingoloElemento(parametroIdLibroDaModificare);
 			request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		request.setAttribute("libroDaInviareAPaginaModifica", libro);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("../libro/modifica_libro.jsp");
 		dispatcher.forward(request, response);
-		
-	}
 
+	}
 
 }

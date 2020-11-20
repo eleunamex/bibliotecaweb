@@ -15,9 +15,9 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 @WebServlet("/insert/PrepareInsertLibro")
 public class PrepareInsertLibro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 			request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
@@ -25,9 +25,7 @@ public class PrepareInsertLibro extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
-	
+
 	}
-
-
 
 }

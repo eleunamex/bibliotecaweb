@@ -35,6 +35,7 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 				request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
 			} catch (Exception e) {
 				e.printStackTrace();
+				request.setAttribute("errorMessage", "Operazione fallita");
 			}
 			request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
 			return;
@@ -42,7 +43,6 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 
 		Long idAutoreInputParamLong;
 		Long idLibroInputParamLong;
-
 		try {
 			idAutoreInputParamLong = Long.parseLong(idAutoreInputParam);
 			idLibroInputParamLong = Long.parseLong(idLibroInputParam);
@@ -68,6 +68,7 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 			request.setAttribute("successMessage", "Libro aggiornato");
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("errorMessage", "Operazione fallita");
 		}
 		request.getRequestDispatcher("../libro/cerca_libro.jsp").forward(request, response);
 

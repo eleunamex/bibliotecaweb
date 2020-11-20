@@ -16,7 +16,9 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 @WebServlet("/insert/PrepareInsertUtenteServlet")
 public class PrepareInsertUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 			request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
@@ -25,7 +27,5 @@ public class PrepareInsertUtenteServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
 	}
-
-	
 
 }

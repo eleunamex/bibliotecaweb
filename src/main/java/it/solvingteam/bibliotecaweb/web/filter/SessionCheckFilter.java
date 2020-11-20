@@ -29,12 +29,12 @@ public class SessionCheckFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		String path = ((HttpServletRequest) request).getRequestURI();
-		if (path.equals("/bibliotecaweb/login.jsp") || path.equals("/bibliotecaweb/LoginServlet") || path.contains("/assets/")) {
-			fC.doFilter(request, response); // continua 
+		if (path.equals("/bibliotecaweb/login.jsp") || path.equals("/bibliotecaweb/LoginServlet")
+				|| path.contains("/assets/")) {
+			fC.doFilter(request, response); // continua
 		} else {
 			if (req.getSession().getAttribute("user") == null) { // se non c'e' l'utente in sessione
 				res.sendRedirect(contextPath + "/login.jsp"); // redirect al login
-//				fC.doFilter(request, response);
 			} else {
 				fC.doFilter(request, response);
 			}

@@ -18,14 +18,15 @@ import it.solvingteam.bibliotecaweb.model.Libro;
 public class CercaLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String genereInputParam = request.getParameter("genere");
 		String titoloInputParam = request.getParameter("titolo");
 		String tramaInputParam = request.getParameter("trama");
 		String nomeAutoreInputParam = request.getParameter("nomeAutore");
 		String cognomeAutoreInputParam = request.getParameter("cognomeAutore");
-	
+
 		Libro libro = new Libro();
 		libro.setGenere(genereInputParam);
 		libro.setTitolo(titoloInputParam);
@@ -34,9 +35,9 @@ public class CercaLibroServlet extends HttpServlet {
 		autore.setNome(nomeAutoreInputParam);
 		autore.setCognome(cognomeAutoreInputParam);
 		libro.setAutore(autore);
-		
+
 		try {
-			request.setAttribute("listaLibriAttribute",MyServiceFactory.getLibroServiceInstance().cercaLibri(libro));
+			request.setAttribute("listaLibriAttribute", MyServiceFactory.getLibroServiceInstance().cercaLibri(libro));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

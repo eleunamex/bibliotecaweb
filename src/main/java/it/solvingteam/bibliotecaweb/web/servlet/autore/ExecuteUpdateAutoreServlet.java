@@ -18,29 +18,32 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 @WebServlet("/update/ExecuteUpdateAutoreServlet")
 public class ExecuteUpdateAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String nomeInputParam = request.getParameter("nome");
 		String cognomeInputParam = request.getParameter("cognome");
 		String dataNascitaInputParam = request.getParameter("dataNascita");
 		String idAutoreInputParam = request.getParameter("idAutore");
-		
+
+		// dati della precedente search
 		String cercaNomeAutore = request.getParameter("cercaNomeAutore");
 		String cercaCognomeAutore = request.getParameter("cercaCognomeAutore");
-		
-		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()){
+
+		// controlli
+		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()) {
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 			request.getRequestDispatcher("../autore/modifica_autore.jsp").forward(request, response);
 			return;
 		}
-		
+
 		Autore autore = new Autore();
 		autore.setId(Long.parseLong(idAutoreInputParam));
 		autore.setNome(nomeInputParam);
 		autore.setCognome(cognomeInputParam);
 		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
-		
+
 		try {
 			MyServiceFactory.getAutoreServiceInstance().aggiorna(autore);
 			request.setAttribute("successMessage", "Autore aggiornato");
@@ -48,19 +51,21 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Operazione fallita");
 		}
-		
+
+		// dati della precedente search
 		Autore autoreSearch = new Autore();
 		autoreSearch.setNome(cercaNomeAutore);
 		autoreSearch.setCognome(cercaCognomeAutore);
-		
+
 		try {
-		request.setAttribute("listaAutoriAttribute",MyServiceFactory.getAutoreServiceInstance().cercaAutore(autoreSearch));
-		request.setAttribute("cercaNomeAutore", cercaNomeAutore);
-		request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
+			request.setAttribute("listaAutoriAttribute",
+					MyServiceFactory.getAutoreServiceInstance().cercaAutore(autoreSearch));
+			request.setAttribute("cercaNomeAutore", cercaNomeAutore);
+			request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		request.getRequestDispatcher("../autore/risultati_cerca_autore.jsp").forward(request, response);
 	}
 

@@ -19,17 +19,16 @@ import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 @WebServlet("/DettagliAutoreServlet")
 public class DettagliAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
 
 		String contextPath = request.getContextPath() + "/CercaAutoreServlet";
 		Long parametroIdLong;
 
-		
-		//controlli
+		// controlli parametri in get
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
 			response.sendRedirect(contextPath);
 			return;
@@ -41,13 +40,13 @@ public class DettagliAutoreServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		AutoreService service = MyServiceFactory.getAutoreServiceInstance();
-		
+
 		Autore autore = new Autore();
-		
+
 		try {
-			autore=service.caricaSingoloElemento(parametroIdLong);
+			autore = service.caricaSingoloElemento(parametroIdLong);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,8 +54,7 @@ public class DettagliAutoreServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("autore/dettagli_autore.jsp");
 		dispatcher.forward(request, response);
-	
+
 	}
 
-	
 }

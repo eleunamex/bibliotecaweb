@@ -16,21 +16,22 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 @WebServlet("/CercaUtenteServlet")
 public class CercaUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String nomeInputParam = request.getParameter("nome");
 		String cognomeInputParam = request.getParameter("cognome");
 		String usernameInputParam = request.getParameter("username");
-		
+
 		Utente utente = new Utente();
 		utente.setNome(nomeInputParam);
 		utente.setCognome(cognomeInputParam);
 		utente.setUsername(usernameInputParam);
-		
+
 		try {
-			request.setAttribute("listaUtentiAttribute",MyServiceFactory.getUtenteServiceInstance().cercaUtente(utente));
+			request.setAttribute("listaUtentiAttribute",
+					MyServiceFactory.getUtenteServiceInstance().cercaUtente(utente));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

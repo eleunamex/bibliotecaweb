@@ -18,29 +18,31 @@ import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 @WebServlet("/insert/ExecuteInsertAutoreServlet")
 public class ExecuteInsertAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-  
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String nomeInputParam = request.getParameter("nome");
 		String cognomeInputParam = request.getParameter("cognome");
 		String dataNascitaInputParam = request.getParameter("dataNascita");
-		
-		
-		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()){
+
+		// controlli
+		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()) {
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 			request.getRequestDispatcher("../autore/inserisci_autore.jsp").forward(request, response);
 			return;
 		}
-		
+
 		Autore autore = new Autore();
 		autore.setNome(nomeInputParam);
 		autore.setCognome(cognomeInputParam);
 		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
-		
+
 		try {
 			MyServiceFactory.getAutoreServiceInstance().inserisciNuovo(autore);
 			request.setAttribute("successMessage", "Autore inserito");
 		} catch (Exception e) {
+			request.setAttribute("errorMessage", "Oprazion fallita");
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("../autore/cerca_autore.jsp").forward(request, response);

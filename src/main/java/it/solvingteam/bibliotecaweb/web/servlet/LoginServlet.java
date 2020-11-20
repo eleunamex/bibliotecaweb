@@ -20,8 +20,6 @@ import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -44,15 +42,15 @@ public class LoginServlet extends HttpServlet {
 				Boolean isGuest = false;
 				HttpSession currentSession = request.getSession(); // crea una nuova sessione
 				currentSession.setAttribute("user", utente); // setta l'utente nella sessione
-				for(Ruolo r : utente.getListaRuoli()) {
-					if(r.getCodice().equals("ADMIN_ROLE")) {
-						isAdmin=true;
+				for (Ruolo r : utente.getListaRuoli()) {
+					if (r.getCodice().equals("ADMIN_ROLE")) {
+						isAdmin = true;
 					}
-					if(r.getCodice().equals("CLASSIC_ROLE")) {
-						isClassic=true;
+					if (r.getCodice().equals("CLASSIC_ROLE")) {
+						isClassic = true;
 					}
-					if(r.getCodice().equals("GUEST_ROLE")) {
-						isGuest=true;
+					if (r.getCodice().equals("GUEST_ROLE")) {
+						isGuest = true;
 					}
 				}
 				currentSession.setAttribute("isAdmin", isAdmin);

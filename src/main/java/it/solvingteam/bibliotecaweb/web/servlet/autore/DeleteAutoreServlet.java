@@ -20,14 +20,15 @@ import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 @WebServlet("/delete/DeleteAutoreServlet")
 public class DeleteAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-  
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
-		
+
 		Long parametroIdLong;
-		
-		//controlli
+
+		// controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
 			response.sendRedirect("index.jsp");
 			return;
@@ -39,29 +40,27 @@ public class DeleteAutoreServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		AutoreService service = MyServiceFactory.getAutoreServiceInstance();
-		
+
 		Autore autore = new Autore();
 		autore.setId(parametroIdLong);
-		
+
 		try {
 			service.rimuovi(autore);
 			request.setAttribute("successMessage", "Autore eliminato");
-		} catch(SQLIntegrityConstraintViolationException con) {
+		} catch (SQLIntegrityConstraintViolationException con) {
 			con.printStackTrace();
 			request.setAttribute("errorMessage", "Non puoi eliminare un autore se ha dei libri");
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Operazione fallita");
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("../CercaAutoreServlet");
 
 		dispatcher.forward(request, response);
-	
-	}
 
- 
+	}
 
 }

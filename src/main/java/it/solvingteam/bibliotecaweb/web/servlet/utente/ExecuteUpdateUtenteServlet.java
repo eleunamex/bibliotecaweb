@@ -35,8 +35,8 @@ public class ExecuteUpdateUtenteServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 			try {
 				request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
-				request.setAttribute("utenteDaInviareAPaginaModifica",MyServiceFactory
-						.getUtenteServiceInstance().caricaSingoloElemento(Long.parseLong(idInputParam)));
+				request.setAttribute("utenteDaInviareAPaginaModifica", MyServiceFactory.getUtenteServiceInstance()
+						.caricaSingoloElemento(Long.parseLong(idInputParam)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -57,12 +57,13 @@ public class ExecuteUpdateUtenteServlet extends HttpServlet {
 		utente.setPassword(passwordInputParam);
 		try {
 			for (String idRuoloSingolo : idRuolo) {
-				Ruolo ruolo = MyServiceFactory.getRuoloServiceInstance().caricaSingoloElemento(Long.parseLong(idRuoloSingolo));
+				Ruolo ruolo = MyServiceFactory.getRuoloServiceInstance()
+						.caricaSingoloElemento(Long.parseLong(idRuoloSingolo));
 				utente.getListaRuoli().add(ruolo);
 			}
 			MyServiceFactory.getUtenteServiceInstance().aggiorna(utente);
 			request.setAttribute("successMessage", "Utente aggiornato");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Operazione fallita");
 			try {

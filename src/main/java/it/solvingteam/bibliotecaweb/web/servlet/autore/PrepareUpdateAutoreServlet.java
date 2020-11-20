@@ -20,14 +20,16 @@ import it.solvingteam.bibliotecaweb.service.autore.AutoreService;
 public class PrepareUpdateAutoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
 		String cercaNomeAutore = request.getParameter("cercaNomeAutore");
 		String cercaCognomeAutore = request.getParameter("cercaCognomeAutore");
-		
+
 		Long parametroIdLong;
-		//controlli
+
+		// controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
 			response.sendRedirect("index");
 			return;
@@ -39,24 +41,25 @@ public class PrepareUpdateAutoreServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		AutoreService service = MyServiceFactory.getAutoreServiceInstance();
-		
+
 		Autore autore = new Autore();
-		
+
 		try {
 			autore = service.caricaSingoloElemento(parametroIdLong);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		request.setAttribute("autoreDaInviareAPaginaModifica", autore);
+		// dati della precedente search
 		request.setAttribute("cercaNomeAutore", cercaNomeAutore);
 		request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("../autore/modifica_autore.jsp");
 		dispatcher.forward(request, response);
-		
+
 	}
 
 }

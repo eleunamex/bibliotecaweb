@@ -56,11 +56,25 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 			return;
 		}
 
+		// se devo inserire anche un nuovo autore
 		if (idAutoreInputParamLong == 0) {
 
 			String nomeAutoreInputParam = request.getParameter("nome");
 			String cognomeAutoreInputParam = request.getParameter("cognome");
 			String dataNascitaAutoreInputParam = request.getParameter("dataNascita");
+			
+			//controlli
+			if (nomeAutoreInputParam.isEmpty() || cognomeAutoreInputParam.isEmpty() || dataNascitaAutoreInputParam.isEmpty()) {
+				request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
+				try {
+					request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
+				return;
+			}
+			
 
 			Libro libro = new Libro();
 			libro.setTitolo(titoloInputParam);
@@ -79,7 +93,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else {
+		} else {// se non devo inserire anche un nuovo autore
 			Libro libro = new Libro();
 			libro.setTitolo(titoloInputParam);
 			libro.setGenere(genereInputParam);
@@ -92,6 +106,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 				request.setAttribute("successMessage", "Libro inserito");
 			} catch (Exception e) {
 				e.printStackTrace();
+				request.setAttribute("errorMessage", "Operazione fallita");
 			}
 		}
 		request.getRequestDispatcher("../libro/cerca_libro.jsp").forward(request, response);

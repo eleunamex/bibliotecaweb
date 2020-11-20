@@ -18,22 +18,24 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/GuestCheckFilter")
 public class GuestCheckFilter implements Filter {
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession(false);
-		
+
 		String path = ((HttpServletRequest) request).getRequestURI();
 		if (path.equals("/LogoutServlet")) {
-			chain.doFilter(request, response); // continua 
+			chain.doFilter(request, response); // continua
 		}
-		
-		Boolean isAdmin = (Boolean)session.getAttribute("isAdmin");
-		Boolean isClassic = (Boolean)session.getAttribute("isClassic");
-		
-		if(!isAdmin && !isClassic) { //se l'utente non è admin ne classic 
+
+		Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+		Boolean isClassic = (Boolean) session.getAttribute("isClassic");
+
+		if (!isAdmin && !isClassic) { // se l'utente non è admin ne classic
 			RequestDispatcher rq = req.getRequestDispatcher("/LogoutServlet"); // redirect alla login
 			rq.forward(request, response);
-		}else {
+		} else {
 			chain.doFilter(request, response);
 		}
 	}

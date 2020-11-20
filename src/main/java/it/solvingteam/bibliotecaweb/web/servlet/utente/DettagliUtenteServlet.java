@@ -19,17 +19,16 @@ import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
 @WebServlet("/DettagliUtenteServlet")
 public class DettagliUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
 
 		String contextPath = request.getContextPath() + "/CercaUtenteServlet";
 		Long parametroIdLong;
 
-		
-		//controlli
+		// controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
 			response.sendRedirect(contextPath);
 			return;
@@ -41,13 +40,13 @@ public class DettagliUtenteServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		UtenteService service = MyServiceFactory.getUtenteServiceInstance();
-		
+
 		Utente utente = new Utente();
-		
+
 		try {
-			utente=service.caricaSingoloElemento(parametroIdLong);
+			utente = service.caricaSingoloElemento(parametroIdLong);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

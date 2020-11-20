@@ -12,7 +12,6 @@
 <script
 	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 <script>
-
 	$(function() {
 		$("#submit").click(function() {
 			validateForm();

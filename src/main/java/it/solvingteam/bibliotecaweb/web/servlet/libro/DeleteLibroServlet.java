@@ -20,13 +20,14 @@ import it.solvingteam.bibliotecaweb.service.libro.LibroService;
 public class DeleteLibroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String parametroIdString = request.getParameter("idDaInviareComeParametro");
 
 		Long parametroIdLong;
-		
-		//controlli
+
+		// controlli
 		if (parametroIdString == null || parametroIdString.isEmpty()) {
 			response.sendRedirect("index.jsp");
 			return;
@@ -38,12 +39,12 @@ public class DeleteLibroServlet extends HttpServlet {
 				return;
 			}
 		}
-		
+
 		LibroService service = MyServiceFactory.getLibroServiceInstance();
-		
+
 		Libro libro = new Libro();
 		libro.setId(parametroIdLong);
-		
+
 		try {
 			service.rimuovi(libro);
 			request.setAttribute("successMessage", "Libro eliminato");
@@ -55,7 +56,7 @@ public class DeleteLibroServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("../CercaLibroServlet");
 
 		dispatcher.forward(request, response);
-	
+
 	}
 
 }
