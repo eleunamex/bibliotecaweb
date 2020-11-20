@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet Filter implementation class SessionCheckFilter
  */
-@WebFilter("/*")
+@WebFilter("/SessionCheckFilter")
 public class SessionCheckFilter implements Filter {
 
 	private String contextPath;
