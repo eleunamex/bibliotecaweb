@@ -43,7 +43,7 @@ public class ExecuteInsertAutoreServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("../autore/inserisci_autore.jsp").forward(request, response);
+		request.getRequestDispatcher("../autore/cerca_autore.jsp").forward(request, response);
 	}
 
 }

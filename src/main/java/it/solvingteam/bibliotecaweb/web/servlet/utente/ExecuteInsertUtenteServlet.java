@@ -62,7 +62,7 @@ public class ExecuteInsertUtenteServlet extends HttpServlet {
 				e1.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
+		request.getRequestDispatcher("../utente/cerca_utente.jsp").forward(request, response);
 	}
 
 }

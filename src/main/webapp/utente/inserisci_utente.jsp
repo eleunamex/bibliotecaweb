@@ -74,12 +74,9 @@
 		</div>
 
 
-		<div
-			class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
-			role="alert">
+		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
 			${errorMessage}
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
@@ -135,7 +132,7 @@
 										<input class="form-check-input" type="checkbox" value="${ruolo.id}"
 											id="idRuolo" name="idRuolo"> 
 											<label class="form-check-label"for="defaultCheck1"> 
-											${ruolo.codice}
+												${ruolo.codice}
 											</label>
 									</div>
 								</c:forEach>

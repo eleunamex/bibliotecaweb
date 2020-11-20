@@ -69,7 +69,7 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
+		request.getRequestDispatcher("../libro/cerca_libro.jsp").forward(request, response);
 
 	}
 

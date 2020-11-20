@@ -103,20 +103,23 @@
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label>Nome <span class="text-danger">*</span>
-							</label> <input type="text" name="nome" id="nome" class="form-control"
+							</label> 
+							<input type="text" name="nome" id="nome" class="form-control"
 								value="<c:out value="${utente.nome}"/>" required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Cognome <span class="text-danger">*</span>
-							</label> <input type="text" name="cognome" id="cognome"
+							</label> 
+							<input type="text" name="cognome" id="cognome"
 								class="form-control" value="<c:out value="${utente.cognome}"/>"
 								required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Username <span class="text-danger">*</span>
-							</label> <input type="text" name="username" id="username"
+							</label> 
+							<input type="text" name="username" id="username"
 								class="form-control" value="<c:out value="${utente.username}"/>"
 								required>
 						</div>
@@ -152,11 +155,11 @@
 										</c:forEach>
 									>
 									<label class="form-check-label" for="defaultCheck1">
-										${ruolo.codice} </label>
+										${ruolo.codice} 
+									</label>
 								</div>
 							</c:forEach>
 						</div>
-
 
 					</div>
 
@@ -164,7 +167,8 @@
 						value="<c:out value="${utente.id}"/>" readonly>
 
 					<button type="submit" name="submit" value="submit" id="submit"
-						class="btn btn-success">Conferma</button>
+						class="btn btn-success">Conferma
+					</button>
 				</form>
 
 

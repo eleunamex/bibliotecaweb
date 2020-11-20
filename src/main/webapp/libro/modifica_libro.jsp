@@ -135,37 +135,8 @@
 									rows="2" ><c:out value="${libro.trama}"/></textarea>
 							</div>
 						</div>
-
-						
 					</div>
-
-<!--  
-						<div class="form-row" id="nuovo_autore" >
-						
-							<div class="form-group col-md-4">
-								<label>Nome <span class="text-danger">*</span>
-								</label> <input type="text" name="nome" id="nome" class="form-control"
-									value="<c:out value="${libro.autore.nome}"/>" required>
-							</div>
-
-							<div class="form-group col-md-4">
-								<label>Cognome <span class="text-danger">*</span>
-								</label> <input type="text" name="cognome" id="cognome"
-									class="form-control" value="<c:out value="${libro.autore.cognome}"/>" required>
-							</div>
-
-							<div class="form-group col-md-4">
-								<label>Data di nascita <span class="text-danger">*</span>
-								</label>
-								<div class="form-group">
-									<input type="date" name="dataNascita" id="dataNascita"
-										class="form-control" placeholder="Inserire la data di nascita"
-										required>
-								</div>
-							</div>
-
-						</div>
--->
+					
 						<input type="hidden" class="form-control" name="id" id="id"
 						value="<c:out value="${libro.id}"/>" readonly >
 

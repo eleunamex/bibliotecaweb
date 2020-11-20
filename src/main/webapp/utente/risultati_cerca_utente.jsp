@@ -50,6 +50,7 @@
 								<th>Nome</th>
 								<th>Cognome</th>
 								<th>Username</th>
+								<th>Stato</th>
 								<th>Azioni</th>
 							</tr>
 						</thead>
@@ -60,6 +61,7 @@
 									<td><c:out value="${utente.nome}" /></td>
 									<td><c:out value="${utente.cognome}" /></td>
 									<td><c:out value="${utente.username}"/></td>
+									<td><c:out value="${utente.stato}"/></td>
 									<td>
 										<a class="btn  btn-sm btn-outline-secondary"
 											href="${pageContext.request.contextPath}/DettagliUtenteServlet?idDaInviareComeParametro=
@@ -70,7 +72,7 @@
 												<c:out value="${utente.id}"/>">Modifica
 												</a>
 											<button class="btn btn-outline-danger btn-sm"data-toggle="modal"
-												data-target="#myModal<c:out value="${utente.id}"/>">Disattiva
+												data-target="#myModal<c:out value="${utente.id}"/>">Elimina
 											</button>
 									</td>
 									

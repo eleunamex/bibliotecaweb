@@ -33,7 +33,7 @@ body {
 				<p>This is a template for a simple marketing or informational
 					website. It includes a large callout called a jumbotron and three
 					supporting pieces of content. Use it as a starting point to create
-					something more unique. isAdmin:${sessionScope.isAdmin} isClassic:${sessionScope.isClassic} isGuest:${sessionScope.isGuest}</p>
+					something more unique.</p>
 				<div class="row">
 					<p>
 						<a class="btn btn-success btn-lg" href="libro/cerca_libro.jsp"

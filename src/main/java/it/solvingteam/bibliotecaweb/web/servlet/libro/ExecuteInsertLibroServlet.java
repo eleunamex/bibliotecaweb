@@ -94,7 +94,7 @@ public class ExecuteInsertLibroServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("../libro/inserisci_libro.jsp").forward(request, response);
+		request.getRequestDispatcher("../libro/cerca_libro.jsp").forward(request, response);
 
 	}
 

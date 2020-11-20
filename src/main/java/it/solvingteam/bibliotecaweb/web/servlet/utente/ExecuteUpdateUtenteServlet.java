@@ -67,13 +67,13 @@ public class ExecuteUpdateUtenteServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "Operazione fallita");
 			try {
 				request.setAttribute("listaRuoliAttribute", MyServiceFactory.getRuoloServiceInstance().listAll());
-				request.getRequestDispatcher("../utente/inserisci_utente.jsp").forward(request, response);
+				request.getRequestDispatcher("../utente/modifica_utente.jsp").forward(request, response);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 
-		request.getRequestDispatcher("../utente/modifica_utente.jsp").forward(request, response);
+		request.getRequestDispatcher("../utente/cerca_utente.jsp").forward(request, response);
 	}
 
 }

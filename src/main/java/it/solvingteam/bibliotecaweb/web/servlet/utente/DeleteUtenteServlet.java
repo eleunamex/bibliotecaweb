@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.solvingteam.bibliotecaweb.model.StatoUtente;
 import it.solvingteam.bibliotecaweb.model.Utente;
 import it.solvingteam.bibliotecaweb.service.MyServiceFactory;
 import it.solvingteam.bibliotecaweb.service.utente.UtenteService;
@@ -42,13 +41,12 @@ String parametroIdString = request.getParameter("idDaInviareComeParametro");
 		
 		UtenteService service = MyServiceFactory.getUtenteServiceInstance();
 		
+		Utente utente = new Utente();
+		utente.setId(parametroIdLong);
 		
 		try {
-			Utente utente = new Utente();
-			utente = service.caricaSingoloElemento(parametroIdLong);
-			utente.setStato(StatoUtente.DISABILITATO);
-			service.aggiorna(utente);
-			request.setAttribute("successMessage", "Utente disattivato");
+			service.rimuovi(utente);
+			request.setAttribute("successMessage", "Utente Eliminato");
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Operazione fallita");
