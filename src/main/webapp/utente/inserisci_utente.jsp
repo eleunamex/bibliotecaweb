@@ -7,54 +7,53 @@
 <title>Inserisci utente</title>
 
 <!-- style per le pagine diverse dalla index -->
-<link href="${pageContext.request.contextPath}/assets/css/global.css"
-	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet">
+
+
+
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+
+
+<style type="text/css">
+.error {
+      color: red;
+   }
+</style>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+
 <script>
-	$(function() {
-		$("#submit").click(function() {
-			validateForm();
-		});
-
-		function validateForm() {
-			var nome = $('#nome').val();
-			var cognome = $('#cognome').val();
-			var username = $('#username').val();
-			var password = $('#password').val();
-			var idRuolo = $('#idRuolo').val();
-			
-			if (nome == "") {
-				alert('Nome non è valido');
-				stopSubmit();
-			}
-			if (cognome == "") {
-				alert('Cognome non è valido');
-				stopSubmit();
-			}
-			if (username == "") {
-				alert('Username non è valido');
-				stopSubmit();
-			}
-			if (password == "") {
-				alert('Password non è valida');
-				stopSubmit();
-			}
-			if (idRuolo == "") {
-				alert('Selezionare almeno un ruolo');
-				stopSubmit();
-			}
-
-			location.reload();
-		}
-
-		function stopSubmit() {
-			$("#form").submit(function(e) {
-				e.preventDefault();
-			});
-		}
-
-	});
+$().ready(function() {
+    $("#form").validate({
+        rules : {
+            nome : {
+              required : true
+            },
+            cognome : {
+                required : true,
+            },
+            username : {
+                required : true,
+            },
+            password : {
+                required : true,
+            },
+            idRuolo : {
+                required : true,
+            }
+        },
+        messages: {
+            nome: "Nome non valido",
+            cognome: "Cognome non valido",
+            username: "Username non valido",
+            password: "Password non valida",
+            idRuolo: "Selezionare almeno un ruolo"
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
 </script>
 </head>
 <body>
@@ -71,14 +70,22 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-
-
 		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
 			${errorMessage}
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		<div class="alert alert-danger alert-dismissible fade show ${requestScope.errorValidation==null?'d-none': ''}"
+			role="alert">
+			<c:forEach items="${requestScope.errorValidation}" var="errore">
+       			 ${errore}<br>
+    		</c:forEach>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
 
 		<div class='card'>
 			<div class='card-header'>
@@ -98,43 +105,46 @@
 						<div class="form-group col-md-4">
 							<label>Nome <span class="text-danger">*</span>
 							</label> <input type="text" name="nome" id="nome" class="form-control"
-								placeholder="Inserire il codice" required>
+								placeholder="Inserire il codice" value="${requestScope.utente.nome}" required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Cognome <span class="text-danger">*</span>
 							</label> <input type="text" name="cognome" id="cognome"
 								class="form-control" placeholder="Inserire la descrizione"
-								required>
+								value="${requestScope.utente.cognome}" required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Username <span class="text-danger">*</span>
 							</label> <input type="text" name="username" id="username"
 								class="form-control" placeholder="Inserire la descrizione"
-								required>
+								value="${requestScope.utente.username}" required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Password <span class="text-danger">*</span>
 							</label> <input type="password" name="password" id="password"
 								class="form-control" placeholder="Inserire la descrizione"
-								required>
+								value="${requestScope.utente.password}" required>
 						</div>
 
 
+					
 						<div class="form-group col md-4">
 							<label for="exampleFormControlSelect1">Ruoli</label>
-								<c:forEach items="${requestScope.listaRuoliAttribute}"
-									var="ruolo">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="${ruolo.id}"
-											id="idRuolo" name="idRuolo"> 
-											<label class="form-check-label"for="defaultCheck1"> 
-												${ruolo.codice}
-											</label>
-									</div>
-								</c:forEach>
+							<c:forEach items="${requestScope.listaRuoliAttribute}" var="ruolo">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="${ruolo.id}" id="idRuolo" name="idRuolo"
+										<c:forEach items="${utente.listaRuoli}" var="ruoloUtente">
+											${ruoloUtente.id eq ruolo.id ? 'checked' : ''} 
+										</c:forEach>
+									>
+									<label class="form-check-label" for="defaultCheck1">
+										${ruolo.codice} 
+									</label>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 

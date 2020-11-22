@@ -1,6 +1,8 @@
 package it.solvingteam.bibliotecaweb.web.servlet.libro;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,52 +28,79 @@ public class ExecuteUpdateLibroServlet extends HttpServlet {
 		String titoloInputParam = request.getParameter("titolo");
 		String tramaInputParam = request.getParameter("trama");
 		String idAutoreInputParam = request.getParameter("idAutore");
-
-		// controlli
-		if (genereInputParam.isEmpty() || titoloInputParam.isEmpty() || tramaInputParam.isEmpty()
-				|| idAutoreInputParam.isEmpty()) {
-			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
+		
+		if(validate(request).isEmpty()) {
+			Libro libro = new Libro();
+			libro.setId(Long.parseLong(idLibroInputParam));
+			libro.setTitolo(titoloInputParam);
+			libro.setGenere(genereInputParam);
+			libro.setTrama(tramaInputParam);
+			Long idAutoreInputParamLong;
 			try {
-				request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
+				idAutoreInputParamLong = Long.parseLong(idAutoreInputParam);
+			} catch (NumberFormatException e) {
+				request.setAttribute("errorMessage", "Autore non valido");
+				try {
+					request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
+					request.setAttribute("libroDaInviareAPaginaModifica", libro);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					request.setAttribute("errorMessage", "Errori interni");
+				}
+				request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
+				return;
+			}
+			try {
+				libro.setAutore(MyServiceFactory.getAutoreServiceInstance().caricaSingoloElemento(idAutoreInputParamLong));
+				MyServiceFactory.getLibroServiceInstance().aggiorna(libro);
+				request.setAttribute("successMessage", "Libro aggiornato");
 			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("errorMessage", "Operazione fallita");
+				request.setAttribute("libroDaInviareAPaginaModifica", libro);
+				request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
+				return;
 			}
-			request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
-			return;
-		}
-
-		Long idAutoreInputParamLong;
-		Long idLibroInputParamLong;
-		try {
-			idAutoreInputParamLong = Long.parseLong(idAutoreInputParam);
-			idLibroInputParamLong = Long.parseLong(idLibroInputParam);
-		} catch (NumberFormatException e) {
-			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
+			request.getRequestDispatcher("../libro/cerca_libro.jsp").forward(request, response);
+		}else{
+			request.setAttribute("errorValidation", validate(request));
+			Libro libro = new Libro();
+			libro.setId(Long.parseLong(idLibroInputParam));
+			libro.setTitolo(titoloInputParam);
+			libro.setGenere(genereInputParam);
+			libro.setTrama(tramaInputParam);
+			Long idAutoreInputParamLong;
 			try {
+				idAutoreInputParamLong = Long.parseLong(idAutoreInputParam);
+				libro.setAutore(MyServiceFactory.getAutoreServiceInstance().caricaSingoloElemento(idAutoreInputParamLong));
 				request.setAttribute("listaAutoriAttribute", MyServiceFactory.getAutoreServiceInstance().listAll());
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				request.setAttribute("errorMessage", "Errori interni");
 			}
+			request.setAttribute("libroDaInviareAPaginaModifica", libro);
 			request.getRequestDispatcher("../libro/modifica_libro.jsp").forward(request, response);
-			return;
 		}
-
-		Libro libro = new Libro();
-		libro.setId(idLibroInputParamLong);
-		libro.setTitolo(titoloInputParam);
-		libro.setGenere(genereInputParam);
-		libro.setTrama(tramaInputParam);
-		try {
-			libro.setAutore(MyServiceFactory.getAutoreServiceInstance().caricaSingoloElemento(idAutoreInputParamLong));
-			MyServiceFactory.getLibroServiceInstance().aggiorna(libro);
-			request.setAttribute("successMessage", "Libro aggiornato");
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("errorMessage", "Operazione fallita");
+	}
+	
+	List<String> validate(HttpServletRequest req) {
+		List<String> messaggiErrore = new ArrayList<>();
+		String genere = req.getParameter("genere");
+		if (genere == null || genere == "") {
+			messaggiErrore.add("Genere non è valido");
 		}
-		request.getRequestDispatcher("../libro/cerca_libro.jsp").forward(request, response);
-
+		String titolo = req.getParameter("titolo");
+		if (titolo == null || titolo == "") {
+			messaggiErrore.add("Titolo non è valido");
+		}
+		String trama = req.getParameter("trama");
+		if (trama == null || trama == "") {
+			messaggiErrore.add("Trama non è valida");
+		}
+		String idAutore = req.getParameter("idAutore");
+		if (idAutore == null || idAutore == "") {
+			messaggiErrore.add("Selezionare un'autore");
+		}
+		return messaggiErrore;
 	}
 
 }

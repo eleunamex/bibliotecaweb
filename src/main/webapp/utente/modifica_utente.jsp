@@ -9,53 +9,48 @@
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css"
 	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+	
+<style type="text/css">
+.error {
+      color: red;
+   }
+</style>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+
 <script>
-
-	$(function() {
-		$("#submit").click(function() {
-			validateForm();
-		});
-
-		function validateForm() {
-			var nome = $('#nome').val();
-			var cognome = $('#cognome').val();
-			var username = $('#username').val();
-			var password = $('#password').val();
-			var idRuolo = $('#idRuolo').val();
-
-			if (nome == "") {
-				alert('Nome non è valido');
-				stopSubmit();
-			}
-			if (cognome == "") {
-				alert('Cognome non è valido');
-				stopSubmit();
-			}
-			if (username == "") {
-				alert('Username non è valido');
-				stopSubmit();
-			}
-			if (password == "") {
-				alert('Password non è valida');
-				stopSubmit();
-			}
-			if (idRuolo == "") {
-				alert('Selezionare almeno un ruolo');
-				stopSubmit();
-			}
-
-			location.reload();
-		}
-
-		function stopSubmit() {
-			$("#form").submit(function(e) {
-				e.preventDefault();
-			});
-		}
-
-	});
+$().ready(function() {
+    $("#form").validate({
+        rules : {
+            nome : {
+              required : true
+            },
+            cognome : {
+                required : true,
+            },
+            username : {
+                required : true,
+            },
+            password : {
+                required : true,
+            },
+            idRuolo : {
+                required : true,
+            }
+        },
+        messages: {
+            nome: "Nome non valido",
+            cognome: "Cognome non valido",
+            username: "Username non valido",
+            password: "Password non valida",
+            idRuolo: "Selezionare almeno un ruolo"
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
 </script>
 </head>
 <c:set var="utente" scope="page"
@@ -85,6 +80,16 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		<div class="alert alert-danger alert-dismissible fade show ${requestScope.errorValidation==null?'d-none': ''}"
+			role="alert">
+			<c:forEach items="${requestScope.errorValidation}" var="errore">
+       			 ${errore}<br>
+    		</c:forEach>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
 
 		<div class='card'>
 			<div class='card-header'>

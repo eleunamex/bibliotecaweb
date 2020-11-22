@@ -2,6 +2,9 @@ package it.solvingteam.bibliotecaweb.web.servlet.autore;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,42 +34,69 @@ public class ExecuteUpdateAutoreServlet extends HttpServlet {
 		String cercaNomeAutore = request.getParameter("cercaNomeAutore");
 		String cercaCognomeAutore = request.getParameter("cercaCognomeAutore");
 
-		// controlli
-		if (nomeInputParam.isEmpty() || cognomeInputParam.isEmpty() || dataNascitaInputParam.isEmpty()) {
-			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
+		if (validate(request).isEmpty()) {
+			Autore autore = new Autore();
+			autore.setNome(nomeInputParam);
+			autore.setCognome(cognomeInputParam);
+			autore.setId(Long.parseLong(idAutoreInputParam));
+			try {
+				autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
+			} catch (DateTimeParseException d) {
+				request.setAttribute("errorMessage", "Data di nascita non valida");
+				request.setAttribute("autoreDaInviareAPaginaModifica", autore);
+				request.getRequestDispatcher("../autore/modifica_autore.jsp").forward(request, response);
+				return;
+			}
+			try {
+				MyServiceFactory.getAutoreServiceInstance().aggiorna(autore);
+				request.setAttribute("successMessage", "Autore aggiornato");
+				// dati della precedente search
+				Autore autoreSearch = new Autore();
+				autoreSearch.setNome(cercaNomeAutore);
+				autoreSearch.setCognome(cercaCognomeAutore);
+				try {
+					request.setAttribute("listaAutoriAttribute",
+							MyServiceFactory.getAutoreServiceInstance().cercaAutore(autoreSearch));
+					request.setAttribute("cercaNomeAutore", cercaNomeAutore);
+					request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				request.getRequestDispatcher("../autore/risultati_cerca_autore.jsp").forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("autore", autore);
+				request.setAttribute("errorMessage", "Errori interni");
+			}
+		} else {
+			request.setAttribute("errorValidation", validate(request));
+			Autore autore = new Autore();
+			autore.setNome(nomeInputParam);
+			autore.setCognome(cognomeInputParam);
+			autore.setId(Long.parseLong(idAutoreInputParam));
+			autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
+			request.setAttribute("autoreDaInviareAPaginaModifica", autore);
 			request.getRequestDispatcher("../autore/modifica_autore.jsp").forward(request, response);
 			return;
 		}
+		request.getRequestDispatcher("../autore/cerca_autore.jsp").forward(request, response);
+	}
 
-		Autore autore = new Autore();
-		autore.setId(Long.parseLong(idAutoreInputParam));
-		autore.setNome(nomeInputParam);
-		autore.setCognome(cognomeInputParam);
-		autore.setDataNascita(LocalDate.parse(dataNascitaInputParam).plusDays(1L));
-
-		try {
-			MyServiceFactory.getAutoreServiceInstance().aggiorna(autore);
-			request.setAttribute("successMessage", "Autore aggiornato");
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("errorMessage", "Operazione fallita");
+	List<String> validate(HttpServletRequest req) {
+		List<String> messaggiErrore = new ArrayList<>();
+		String nome = req.getParameter("nome");
+		if (nome == null || nome == "") {
+			messaggiErrore.add("Nome non è valido");
 		}
-
-		// dati della precedente search
-		Autore autoreSearch = new Autore();
-		autoreSearch.setNome(cercaNomeAutore);
-		autoreSearch.setCognome(cercaCognomeAutore);
-
-		try {
-			request.setAttribute("listaAutoriAttribute",
-					MyServiceFactory.getAutoreServiceInstance().cercaAutore(autoreSearch));
-			request.setAttribute("cercaNomeAutore", cercaNomeAutore);
-			request.setAttribute("cercaCognomeAutore", cercaCognomeAutore);
-		} catch (Exception e) {
-			e.printStackTrace();
+		String cognome = req.getParameter("cognome");
+		if ((cognome == null || cognome == "")) {
+			messaggiErrore.add("Cognome non è valido");
 		}
-
-		request.getRequestDispatcher("../autore/risultati_cerca_autore.jsp").forward(request, response);
+		String dataNascita = req.getParameter("dataNascita");
+		if ((dataNascita == null || dataNascita == "")) {
+			messaggiErrore.add("Data di nascita non è valida");
+		}
+		return messaggiErrore;
 	}
 
 }

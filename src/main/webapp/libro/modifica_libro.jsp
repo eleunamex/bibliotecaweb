@@ -9,43 +9,38 @@
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css"
 	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+
+<style type="text/css">
+.error {
+      color: red;
+   }
+</style>
 <script>
-	
-	$(function() {
-		$("#submit").click(function() {
-			validateForm();
-		});
-
-		function validateForm() {
-			var genere = $('#genere').val();
-			var titolo = $('#titolo').val();
-			var trama = $('#trama').val();
-
-			if (genere == "") {
-				alert('Genere non è valido');
-				stopSubmit();
-			}
-			if (titolo == "") {
-				alert('Titolo non è valido');
-				stopSubmit();
-			}
-			if (trama == "") {
-				alert('Trama non è valida');
-				stopSubmit();
-			}
-
-			location.reload();
-		}
-
-		function stopSubmit() {
-			$("#form").submit(function(e) {
-				e.preventDefault();
-			});
-		}
-
-	});
+$().ready(function() {
+    $("#form").validate({
+        rules : {
+            genere : {
+              required : true
+            },
+            titolo : {
+                required : true,
+            },
+            trama : {
+                required : true,
+            }
+        },
+        messages: {
+        	genere: "Genere non valido",
+        	titolo: "Titolo non valido",
+        	trama: "Trama  non valida"
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
 </script>
 </head>
 <c:set var="libro" scope="page" value="${requestScope.libroDaInviareAPaginaModifica}" />
@@ -60,21 +55,6 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
-			${errorMessage}
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-
-		<div class="alert alert-danger alert-dismissible fade show d-none"
-			role="alert">
-			Operazione fallita!
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
 
 		<div
 			class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
@@ -85,6 +65,19 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		
+		
+		<div class="alert alert-danger alert-dismissible fade show ${requestScope.errorValidation==null?'d-none': ''}"
+			role="alert">
+			<c:forEach items="${requestScope.errorValidation}" var="errore">
+       			 ${errore}<br>
+    		</c:forEach>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			
 
 		<div class='card'>
 			<div class='card-header'>

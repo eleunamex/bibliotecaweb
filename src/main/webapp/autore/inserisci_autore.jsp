@@ -6,47 +6,46 @@
 <jsp:include page="../header.jsp" />
 <title>Inserisci autore</title>
 
+
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 
-<script
-	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+
+<style type="text/css">
+.error {
+      color: red;
+   }
+</style>
+
+
 <script>
-
-	$(function() {
-		$("#submit").click(function() {
-			validateForm();
-		});
-
-		function validateForm() {
-			var nome = $('#nome').val();
-			var cognome = $('#cognome').val();
-			var dataNascita = $('#dataNascita').val();
-
-			if (nome == "") {
-				alert('Nome non è valido');
-				stopSubmit();
-			}
-			if (cognome == "") {
-				alert('Cognome non è valido');
-				stopSubmit();
-			}
-			if (dataNascita == "") {
-				alert('Data di nascita non è valida');
-				stopSubmit();
-			}
-
-			location.reload();
-		}
-
-		function stopSubmit() {
-			$("#form").submit(function(e) {
-				e.preventDefault();
-			});
-		}
-
-	});
+$().ready(function() {
+    $("#form").validate({
+        rules : {
+            nome : {
+              required : true
+            },
+            cognome : {
+                required : true,
+            },
+            dataNascita : {
+                required : true,
+            }
+        },
+        messages: {
+            nome: "Nome non valido",
+            cognome: "Cognome non valido",
+            dataNascita: "Data di nascita non valida"
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
 </script>
 
 </head>
@@ -55,17 +54,8 @@
 
 	<main role="main" class="container">
 
-		<div
-			class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
-			role="alert">
-			${errorMessage}
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div
-			class="alert alert-success alert-dismissible fade show ${successMessage==null?'d-none': ''}"
+
+		<div class="alert alert-success alert-dismissible fade show ${successMessage==null?'d-none': ''}"
 			role="alert">
 			${successMessage}
 			<button type="button" class="close" data-dismiss="alert"
@@ -73,6 +63,26 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
+			role="alert">
+			${errorMessage}
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="alert alert-danger alert-dismissible fade show ${requestScope.errorValidation==null?'d-none': ''}"
+			role="alert">
+			<c:forEach items="${requestScope.errorValidation}" var="errore">
+       			 ${errore}<br>
+    		</c:forEach>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+		
+		
 
 		<div class='card'>
 			<div class='card-header'>
@@ -84,21 +94,24 @@
 
 					<div class="form-row">
 						<div class="form-group col-md-4">
-							<label>Nome<span class="text-danger"></span>
+							<label >Nome<span class="text-danger"></span>
 							</label> <input type="text" name="nome" id="nome"
-								class="form-control" placeholder="Inserire il nome" >
+								class="form-control" placeholder="Inserire il nome"
+								value="${requestScope.autore.nome}">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Cognome <span class="text-danger"></span>
+							<label >Cognome <span class="text-danger"></span>
 							</label> <input type="text" name="cognome" id="cognome"
-								class="form-control" placeholder="Inserire il cognome">
+								class="form-control" placeholder="Inserire il cognome"
+								value="${requestScope.autore.cognome}">
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label>Data di nascita <span class="text-danger"></span>
 							</label> <input type="date" name="dataNascita" id="dataNascita"
-								class="form-control" placeholder="Inserire il nome">
+								class="form-control" placeholder="Inserire il nome"
+								value="${requestScope.autore.dataNascita}">
 						</div>
 
 					</div>
@@ -110,6 +123,9 @@
 
 				<!-- end card-body -->
 			</div>
+			
+			
+		
 			<div class='card-footer'>
 				<button onclick="window.history.go(-1); return false;" type="submit"
 					value="back" class='btn btn-outline-secondary' style='width: 85px'>Indietro

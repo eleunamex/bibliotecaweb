@@ -9,58 +9,57 @@
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css"
 	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+
+<style type="text/css">
+.error {
+      color: red;
+   }
+</style>
 <script>
-	$(function() {
-		$("#submit").click(function() {
-			validateForm();
-		});
+$(function() {
 
-		function validateForm() {
-			var genere = $('#genere').val();
-			var titolo = $('#titolo').val();
-			var trama = $('#trama').val();
-
-			if ( genere == "") {
-				alert('Genere non è valido');
-				stopSubmit();
-			}
-			if (titolo == "") {
-				alert('Titolo non è valido');
-				stopSubmit();
-			}
-			if (trama == "") {
-				alert('Trama non è valida');
-				stopSubmit();
-			}
-			if ($("#select_autore").val() == "0") {
-				var nome = $('#nome').val();
-				var cognome = $('#cognome').val();	
-				if(nome == ""){
-					alert('Nome autore non è valido');
-					stopSubmit();
-				}
-				if(cognome =="" ){
-					alert('Cognome autore non è valido');
-					stopSubmit();
-				}
-			}
-			
-			location.reload();
-		}
-
-		function stopSubmit() {
-			$("#form").submit(function(e) {
-				e.preventDefault();
-			});
-		}
-		$("#nuovo_autore").hide();
+	 $("#form").validate({
+	        rules : {
+	            genere : {
+	              required : true
+	            },
+	            titolo : {
+	                required : true,
+	            },
+	            trama : {
+	                required : true,
+	            },
+	            nome : {
+	                required : true
+	              },
+	              cognome : {
+	                  required : true,
+	              },
+	              dataNascita : {
+	                  required : true,
+	              }
+	        },
+	        messages: {
+	        	genere: "Genere non valido",
+	        	titolo: "Titolo non valido",
+	        	trama: "Trama  non valida",
+	        	  nome: "Nome non valido",
+	              cognome: "Cognome non valido",
+	              dataNascita: "Data di nascita non valida"
+	        },
+	        submitHandler: function(form) {
+	            form.submit();
+	        }
+	    });
+	
+	$("#nuovo_autore").show();
 
 		$('#select_autore').change(function() {
 			if ($(this).val() == "0") {
 				$("#nuovo_autore").show();
-			}else{
+			} else {
 				$("#nuovo_autore").hide();
 			}
 		})
@@ -72,9 +71,9 @@
 			$("p").hide();
 		});
 		$("#show").click(function() {
-			$("#nuovo_autore").show();
-		});
+		$("#nuovo_autore").show();
 	});
+});
 </script>
 </head>
 <body>
@@ -95,25 +94,17 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-
-		<div class="alert alert-danger alert-dismissible fade show d-none"
+		
+		<div class="alert alert-danger alert-dismissible fade show ${requestScope.errorValidation==null?'d-none': ''}"
 			role="alert">
-			Operazione fallita!
+			<c:forEach items="${requestScope.errorValidation}" var="errore">
+       			 ${errore}<br>
+    		</c:forEach>
 			<button type="button" class="close" data-dismiss="alert"
 				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
-		</div>
-
-		<div
-			class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}"
-			role="alert">
-			${errorMessage}
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+			</div>
 
 		<div class='card'>
 			<div class='card-header'>
@@ -132,13 +123,16 @@
 						<div class="form-group col-md-4">
 							<label>Genere <span class="text-danger">*</span>
 							</label> <input type="text" name="genere" id="genere"
-								class="form-control" placeholder="Inserire il codice" required>
+								class="form-control" placeholder="Inserire il codice" 
+								value="${requestScope.libro.genere}"
+								required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Titolo <span class="text-danger">*</span>
 							</label> <input type="text" name="titolo" id="titolo"
 								class="form-control" placeholder="Inserire la descrizione"
+								value="${requestScope.libro.titolo}"
 								required>
 						</div>
 
@@ -146,7 +140,6 @@
 						<div class="form-group col md-4">
 							<label for="exampleFormControlSelect1">Autore</label> <select
 								class="form-control" id="select_autore" name="idAutore">
-								<option value="Scegli">Scegli</option>
 								<option value="0">Nuovo autore</option>
 								<c:forEach items="${requestScope.listaAutoriAttribute}"
 									var="autore">
@@ -162,11 +155,9 @@
 							</label>
 							<div class="form-group">
 								<textarea class="form-control" id="trama" name="trama"
-									rows="2"></textarea>
+									rows="2" >${requestScope.libro.trama}</textarea>
 							</div>
 						</div>
-
-						
 					</div>
 
 
@@ -175,13 +166,15 @@
 							<div class="form-group col-md-4">
 								<label>Nome <span class="text-danger">*</span>
 								</label> <input type="text" name="nome" id="nome" class="form-control"
-									placeholder="Inserire il nome" required>
+									placeholder="Inserire il nome"
+									value="${requestScope.autore.nome}" required>
 							</div>
 
 							<div class="form-group col-md-4">
 								<label>Cognome <span class="text-danger">*</span>
 								</label> <input type="text" name="cognome" id="cognome"
-									class="form-control" placeholder="Inserire il cognome" required>
+									class="form-control" placeholder="Inserire il cognome" 
+									value="${requestScope.autore.cognome}" required>
 							</div>
 
 							<div class="form-group col-md-4">
@@ -190,6 +183,7 @@
 								<div class="form-group">
 									<input type="date" name="dataNascita" id="dataNascita"
 										class="form-control" placeholder="Inserire la data di nascita"
+										value="${requestScope.autore.dataNascita}"
 										required>
 								</div>
 							</div>
