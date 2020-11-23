@@ -97,9 +97,6 @@
 														href="${pageContext.request.contextPath}/update/PrepareUpdateLibroServlet?idDaInviareComeParametro=
 														<c:out value="${libro.id}"/>">Modifica
 													</a>
-												</c:if>
-											
-												<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
 													<button class="btn btn-outline-danger btn-sm"
 														data-toggle="modal"
 														data-target="#myModal<c:out value="${libro.id}"/>">Elimina

@@ -9,11 +9,11 @@
 
 <!-- style per le pagine diverse dalla index -->
 <link href="${pageContext.request.contextPath}/assets/css/global.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/assets/js/jquery-3.4.1.min.js"></script>
 
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+
 
 <style type="text/css">
 .error {
@@ -30,10 +30,12 @@ $().ready(function() {
               required : true
             },
             cognome : {
-                required : true,
+                required : true
             },
             dataNascita : {
-                required : true,
+            	required : true,
+                date : true,
+                dateITA : true
             }
         },
         messages: {

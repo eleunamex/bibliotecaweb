@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Errori interni");
+			request.setAttribute("errorMessage", "Username o password errati");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 

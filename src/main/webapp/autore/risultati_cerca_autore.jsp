@@ -81,9 +81,6 @@
 												<c:out value="${autore.id}"/>&cercaNomeAutore=${requestScope.cercaNomeAutore}&
 												cercaCognomeAutore=${requestScope.cercaCognomeAutore}">Modifica
 													</a>
-												</c:if>
-										
-												<c:if test="${sessionScope.isAdmin eq true or sessionScope.isClassic  eq true }">
 													<button class="btn btn-outline-danger btn-sm"
 														data-toggle="modal"
 														data-target="#myModal<c:out value="${autore.id}"/>">Elimina

@@ -25,10 +25,12 @@ $().ready(function() {
               required : true
             },
             cognome : {
-                required : true,
+                required : true
             },
             dataNascita : {
-                required : true,
+            	required : true,
+                date : true,
+                dateITA : true
             }
         },
         messages: {

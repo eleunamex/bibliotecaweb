@@ -38,7 +38,9 @@ $(function() {
 	                  required : true,
 	              },
 	              dataNascita : {
-	                  required : true,
+	            		required : true,
+	                    date : true,
+	                    dateITA : true
 	              }
 	        },
 	        messages: {
